@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	
+	<?if $(var.Platform)=x64 ?>
+		<?define AppCode="{AA0F202A-C9E0-434A-AB1C-982C15682F65}"?>	
+	<?else?>
+		<?define AppCode="{572CF17A-F282-4B7A-B2FF-E96B35C79576}"?>
+	<?endif?>
+
+	<?define UpgradeCode="{E9710922-5282-4AE1-A31E-E52368DF1C07}"?>
+	
+	<Product
+		Id="$(var.AppCode)"
+		Name="!(loc.ProductName_$(var.Platform))" 
+		Language="1033" 
+		Version="$(var.BuildVersion)"
+		Manufacturer="ImpInc."
+		UpgradeCode="$(var.UpgradeCode)">
+		
+		<Package 
+			InstallerVersion="200"
+			Compressed="yes" 
+			Manufacturer="ImpInc."
+			Description="Mod Tools for Stardock's Galactic Civilizations IV"
+			InstallScope="perMachine" />
+
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+		
+		<MediaTemplate
+			EmbedCab="yes"
+			/>
+
+		<Icon Id="icon.ico" SourceFile="$(var.ModTools.ProjectDir)\app.ico"/>
+
+		<Property Id="ARPPRODUCTICON">icon.ico</Property>
+		<Property Id="ARPURLINFOABOUT">https://forums.galciv4.com/512485/page/1/#3852302</Property>
+
+		<UIRef Id="WixUI_Minimal"/>
+		<!--<WixVariable Id="WixUIDialogBmp" Value="$(var.ProjectDir)\Assets\Background.bmp"/>
+		<WixVariable Id="WixUIBannerBmp" Value="$(var.ProjectDir)\Assets\Banner.bmp"/>-->
+		<WixVariable Id="WixUILicenseRtf" Value="$(var.ProjectDir)\Assets\AppLicense.rtf"/>
+
+		<Feature Id="ProductFeature" Title="GC4ModToolsSetup" Level="1">
+			
+			<ComponentGroupRef Id="ProductComponents" />
+			<ComponentGroupRef Id="PublishedComponents" />
+			
+		</Feature>
+		
+	</Product>
+	
+</Wix>

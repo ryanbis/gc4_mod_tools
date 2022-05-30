@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Fragment>
+		<ComponentGroup Id="ProductComponents" >
+
+			<ComponentRef Id="AppShortcut"/>
+			
+		</ComponentGroup>
+
+		<DirectoryRef Id="INSTALLFOLDER" FileSource="..\ModTools\bin\Debug\net6.0-windows\win-$(var.Platform)\">
+			<Component Id="AppShortcut" Guid="{AFAF6CC2-6CAF-4C8B-818F-508ACF0DA828}">
+				<Shortcut Id="AppShortcut"
+						  Name="GC IV Mod Tools"
+						  Target="[INSTALLFOLDER]ModTools.exe"
+						  Directory="ProgramMenuFolder"
+						  WorkingDirectory="INSTALLFOLDER"
+						  Icon="icon.ico"
+						  />
+				<RegistryValue Id="RegShortcutKey" Root="HKCU" Key="SOFTWARE\!(loc.ProductFolderName)" Name="Shortcut" Value="1" Type="integer" KeyPath="yes" />
+			</Component>
+		</DirectoryRef>
+	</Fragment>
+</Wix>
