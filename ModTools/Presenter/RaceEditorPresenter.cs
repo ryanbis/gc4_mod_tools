@@ -163,7 +163,7 @@ public class RaceEditorPresenter : IRaceEditorPresenter
         var currentStat = CurrentRace.ColonyStats.FirstOrDefault(cs => cs.EffectType.Equals(e.Value));
         if (currentStat != null)
         {
-            colonyStatsView.ShowAddColonyStatDialog(TargetTypes, BonusTypes, EffectTypes, SpecialValue, currentStat,
+            colonyStatsView.ShowAddColonyStatDialog(TargetTypes, BonusTypes, EffectTypes, currentStat,
                 stat =>
                 {
                     CurrentRace.ColonyStats.Remove(currentStat);
@@ -235,7 +235,7 @@ public class RaceEditorPresenter : IRaceEditorPresenter
 
     private void OnDescriptionTextChanged(object? sender, DataArg<string> e)
     {
-        CurrentRace.Description_Parsed = e.Value ?? "";
+        CurrentRace.Description_Desired = e.Value ?? "";
     }
 
     private void OnNameTextChanged(object? sender, DataArg<string> e)
@@ -309,7 +309,7 @@ public class RaceEditorPresenter : IRaceEditorPresenter
     private void OnAddColonyStatClicked(object? sender, EventArgs e)
     {
         var colonyStatsView = _serviceProvider.GetRequiredService<IColonyStatView>();
-        colonyStatsView.ShowAddColonyStatDialog(TargetTypes, BonusTypes, EffectTypes, SpecialValue, stat =>
+        colonyStatsView.ShowAddColonyStatDialog(TargetTypes, BonusTypes, EffectTypes, stat =>
         {
             CurrentRace.ColonyStats.Add(stat);
             UpdateUi();
@@ -472,7 +472,6 @@ public class RaceEditorPresenter : IRaceEditorPresenter
         var result = _raceService.AnalyzeRaces(RaceList);
         Types = result.ApprovalTypes;
         Tags = result.ApprovalTags;
-        SpecialValue = result.SpecialValue;
         TargetTypes = result.TargetTypes;
         BonusTypes = result.BonusTypes;
         EffectTypes = result.EffectTypes;

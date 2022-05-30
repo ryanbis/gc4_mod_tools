@@ -106,7 +106,7 @@ namespace ModTools.View
             this.colonyEffectTypeHeader = new System.Windows.Forms.ColumnHeader();
             this.colonyValueHeader = new System.Windows.Forms.ColumnHeader();
             this.colonyValueTypeHeader = new System.Windows.Forms.ColumnHeader();
-            this.colonySpecialValueHeader = new System.Windows.Forms.ColumnHeader();
+            this.colonyStringParamHeader = new System.Windows.Forms.ColumnHeader();
             this.label17 = new ReaLTaiizor.Controls.CrownLabel();
             this.removeGlobalStatButton = new System.Windows.Forms.PictureBox();
             this.addGlobalStatButton = new System.Windows.Forms.PictureBox();
@@ -116,6 +116,8 @@ namespace ModTools.View
             this.label16 = new ReaLTaiizor.Controls.CrownLabel();
             this.citizenRaceBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.saveRaceButton = new ReaLTaiizor.Controls.CrownButton();
+            this.valueParam1Header = new System.Windows.Forms.ColumnHeader();
+            this.valueParam2Header = new System.Windows.Forms.ColumnHeader();
             ((System.ComponentModel.ISupportInitialize)(this.citizenRaceBindingSource)).BeginInit();
             this.tabPage1.SuspendLayout();
             this.generalInfoTabPage.SuspendLayout();
@@ -959,7 +961,7 @@ namespace ModTools.View
             // 
             this.removeColonyStatButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("removeColonyStatButton.BackgroundImage")));
             this.removeColonyStatButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.removeColonyStatButton.Location = new System.Drawing.Point(350, 320);
+            this.removeColonyStatButton.Location = new System.Drawing.Point(575, 320);
             this.removeColonyStatButton.Name = "removeColonyStatButton";
             this.removeColonyStatButton.Size = new System.Drawing.Size(24, 24);
             this.removeColonyStatButton.TabIndex = 36;
@@ -971,7 +973,7 @@ namespace ModTools.View
             // 
             this.addColonyStatButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("addColonyStatButton.BackgroundImage")));
             this.addColonyStatButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.addColonyStatButton.Location = new System.Drawing.Point(350, 280);
+            this.addColonyStatButton.Location = new System.Drawing.Point(575, 280);
             this.addColonyStatButton.Name = "addColonyStatButton";
             this.addColonyStatButton.Size = new System.Drawing.Size(24, 24);
             this.addColonyStatButton.TabIndex = 35;
@@ -986,12 +988,14 @@ namespace ModTools.View
             this.colonyEffectTypeHeader,
             this.colonyValueHeader,
             this.colonyValueTypeHeader,
-            this.colonySpecialValueHeader});
+            this.colonyStringParamHeader,
+            this.valueParam1Header,
+            this.valueParam2Header});
             this.colonyStatsListView.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.colonyStatsListView.Location = new System.Drawing.Point(6, 280);
             this.colonyStatsListView.MultiSelect = false;
             this.colonyStatsListView.Name = "colonyStatsListView";
-            this.colonyStatsListView.Size = new System.Drawing.Size(338, 210);
+            this.colonyStatsListView.Size = new System.Drawing.Size(563, 210);
             this.colonyStatsListView.TabIndex = 34;
             this.colonyStatsListView.UseCompatibleStateImageBehavior = false;
             this.colonyStatsListView.View = System.Windows.Forms.View.Details;
@@ -1012,11 +1016,11 @@ namespace ModTools.View
             this.colonyValueTypeHeader.Text = "ValueType";
             this.colonyValueTypeHeader.Width = 75;
             // 
-            // colonySpecialValueHeader
+            // colonyStringParamHeader
             // 
-            this.colonySpecialValueHeader.Text = "SpecialValue";
-            this.colonySpecialValueHeader.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.colonySpecialValueHeader.Width = 45;
+            this.colonyStringParamHeader.Text = "Resource";
+            this.colonyStringParamHeader.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.colonyStringParamHeader.Width = 100;
             // 
             // label17
             // 
@@ -1108,6 +1112,18 @@ namespace ModTools.View
             this.saveRaceButton.TabIndex = 2;
             this.saveRaceButton.Text = "Save Race";
             this.saveRaceButton.Click += new System.EventHandler(this.saveRaceButton_Click);
+            // 
+            // valueParam1Header
+            // 
+            this.valueParam1Header.Text = "ValueParam1";
+            this.valueParam1Header.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.valueParam1Header.Width = 75;
+            // 
+            // valueParam2Header
+            // 
+            this.valueParam2Header.Text = "ValueParam2";
+            this.valueParam2Header.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.valueParam2Header.Width = 75;
             // 
             // RaceEditorForm
             // 
@@ -1220,7 +1236,7 @@ namespace ModTools.View
         private ColumnHeader colonyEffectTypeHeader;
         private ColumnHeader colonyValueHeader;
         private ColumnHeader colonyValueTypeHeader;
-        private ColumnHeader colonySpecialValueHeader;
+        private ColumnHeader colonyStringParamHeader;
         private CrownLabel label17;
         private PictureBox removeGlobalStatButton;
         private PictureBox addGlobalStatButton;
@@ -1240,5 +1256,7 @@ namespace ModTools.View
         private CrownLabel crownLabel3;
         private CrownComboBox raceComboBox;
         private CrownLabel crownLabel4;
+        private ColumnHeader valueParam1Header;
+        private ColumnHeader valueParam2Header;
     }
 }

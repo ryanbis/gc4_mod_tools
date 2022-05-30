@@ -48,7 +48,7 @@ public class SpaceService : ISpaceService
 
                     if (!string.IsNullOrWhiteSpace(system.Description))
                     {
-                        system.Description_Parsed = starSystemStringList.StringTables
+                        system.Description_Desired = starSystemStringList.StringTables
                             .FirstOrDefault(desc => desc.Label.Equals(system.Description)).String;
                     }
                 });
@@ -371,7 +371,7 @@ public class SpaceService : ISpaceService
                         var descText = new StringTable
                         {
                             Label = ss.Description,
-                            String = ss.Description_Parsed
+                            String = ss.Description_Desired
                         };
                         starSystemTextList.StringTables.Add(descText);
                     }
@@ -379,7 +379,7 @@ public class SpaceService : ISpaceService
                 else
                 {
                     ss.DisplayName = ss.Name_Desired;
-                    ss.Description = ss.Description_Parsed;
+                    ss.Description = ss.Description_Desired;
                 }
             });
         }

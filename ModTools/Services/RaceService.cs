@@ -1,6 +1,4 @@
-﻿using System.Xml;
-using System.Xml.Serialization;
-using ModTools.Model.Race;
+﻿using ModTools.Model.Race;
 using ModTools.Model.String;
 using ModTools.Services.Contracts;
 
@@ -36,7 +34,7 @@ public class RaceService : IRaceService
                 {
                     race.Name_Parsed = stringList.StringTables
                         .FirstOrDefault(name => name.Label.Equals(race.DisplayName)).String;
-                    race.Description_Parsed = stringList.StringTables
+                    race.Description_Desired = stringList.StringTables
                         .FirstOrDefault(desc => desc.Label.Equals(race.Description)).String;
                     race.IsDefaultRace = true;
                 });
@@ -79,7 +77,7 @@ public class RaceService : IRaceService
         }
         else
         {
-            saveRaceObject.race.Description = saveRaceObject.race.Description_Parsed;
+            saveRaceObject.race.Description = saveRaceObject.race.Description_Desired;
             saveRaceObject.race.DisplayName = saveRaceObject.race.Name_Desired;    
         }
 
@@ -157,13 +155,6 @@ public class RaceService : IRaceService
             defaultTraits.Add(race.DefaultTraits);
             consumedTraits.Add(race.ConsumedTrait);
         });
-        var approvalModsFiltered = approvalModifiers.Select(amod => new {amod.Tag, amod.Type, amod.BonusType})
-            .Distinct().ToList();
-        var colonyStatsFiltered = colonyStats.Select(stat => new
-                {stat.Target?.TargetType, stat.BonusType, stat.EffectType, stat.SpecialValue?.Special}).Distinct()
-            .ToList();
-        var globalStatsFiltered = globalStats
-            .Select(stat => new {stat.Target?.TargetType, stat.BonusType, stat.EffectType}).Distinct().ToList();
         specialValues.Remove(null);
         result.ApprovalTypes = approvalTypes;
         approvalTags.Remove(null);
@@ -199,7 +190,7 @@ public class RaceService : IRaceService
         var decTable = new StringTable
         {
             Label = description,
-            String = saveRaceObject.race.Description_Parsed
+            String = saveRaceObject.race.Description_Desired
         };
         racetextList.StringTables.Add(nameTable);
         racetextList.StringTables.Add(decTable);

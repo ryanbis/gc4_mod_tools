@@ -73,7 +73,7 @@ public class CitizenRace : IInternalGameDisplayItem, IParsedNameAndDescForString
     [XmlIgnore]
     public string Name_Desired { get; set; }
     [XmlIgnore]
-    public string Description_Parsed { get; set; }
+    public string Description_Desired { get; set; }
     [XmlIgnore]
     public bool IsDefaultRace { get; set; }
 }

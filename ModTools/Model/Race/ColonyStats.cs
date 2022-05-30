@@ -13,7 +13,7 @@ public class ColonyStats {
     public string BonusType { get; set; }
 
     [XmlElement(ElementName = "Value")]
-    public string Value { get; set; }
+    public string? Value { get; set; }
     [XmlElement(ElementName="ValueType")]
     public string ValueType { get; set; }
     [XmlElement(ElementName="SpecialValue")]

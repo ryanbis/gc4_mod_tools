@@ -113,7 +113,7 @@ namespace ModTools.View
             colonizationAdvisorPortraitPictureBox.Image?.Dispose();
             politicalAdvisorPortraitPictureBox.Image?.Dispose();
             nameTextBox.Text = race.Name_Parsed;
-            descriptionTextBox.Text = race.Description_Parsed;
+            descriptionTextBox.Text = race.Description_Desired;
             IsMinorRaceCheckBox.Checked = race.IsMinorRace;
             hasGenderCheckBox.Checked = race.HasGender;
             var image = _imageService.LoadCitizenImage(basePath, race.Name_Parsed, race.GenericImage, race.GenericImageFullPath);
@@ -183,7 +183,13 @@ namespace ModTools.View
                 var bitmap = effectType.LoadIconBitmap();
                 
                 imageList.Images.Add(effectType.InternalName, bitmap);
-                var item = NewStatListItem(stat.EffectType, index, stat.Value ?? "", stat.ValueType, stat.SpecialValue == null ? "" : "X");
+                var items = new string[5];
+                items[0] = stat.Value ?? "";
+                items[1] = stat.ValueType;
+                items[2] = stat.SpecialValue?.StringParam ?? "";
+                items[3] = stat.SpecialValue?.ValueParam?[0] ?? "";
+                items[4] = stat.SpecialValue?.ValueParam?[1] ?? "";
+                var item = NewStatListItem(stat.EffectType, index, items);
                 colonyStatsListView.Items.Add(item);
             }
             colonyStatsListView.SmallImageList = imageList;

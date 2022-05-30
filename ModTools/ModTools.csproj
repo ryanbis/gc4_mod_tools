@@ -9,7 +9,7 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Version>0.0.1</Version>
     <Platforms>AnyCPU;x64;x86</Platforms>
-    <AssemblyVersion>0.3.1.0</AssemblyVersion>
+    <AssemblyVersion>0.3.2.0</AssemblyVersion>
     <PackageVersion>0.3.1</PackageVersion>
   </PropertyGroup>
 

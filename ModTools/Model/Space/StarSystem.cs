@@ -25,7 +25,7 @@ public class StarSystem : IInternalGameDisplayItem, IParsedNameAndDescForStringT
     [XmlIgnore]
     public string Name_Desired { get; set; }
     [XmlIgnore]
-    public string Description_Parsed { get; set; }
+    public string Description_Desired { get; set; }
 
     public StarSystem Clone()
     {
@@ -34,7 +34,7 @@ public class StarSystem : IInternalGameDisplayItem, IParsedNameAndDescForStringT
             Description = Description,
             Weight = Weight,
             DisplayName = DisplayName,
-            Description_Parsed = Description_Parsed,
+            Description_Desired = Description_Desired,
             InternalName = InternalName,
             Name_Desired = Name_Desired,
             Name_Parsed = Name_Parsed,

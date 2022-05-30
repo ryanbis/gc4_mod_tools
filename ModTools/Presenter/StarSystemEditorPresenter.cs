@@ -124,7 +124,7 @@ public class StarSystemEditorPresenter : IStarSystemEditorPresenter
         {
             _currentStarSystem.OrbitLanes.Clear();
             var system = _inGameStarSystems[e.Value.Value];
-            _currentStarSystem.Description_Parsed = system.Description_Parsed;
+            _currentStarSystem.Description_Desired = system.Description_Desired;
             _currentStarSystem.Weight = system.Weight;
             _currentStarSystem.Name_Parsed = system.Name_Parsed;
             _currentStarSystem.Name_Desired = _currentStarSystem.Name_Parsed;
@@ -189,7 +189,7 @@ public class StarSystemEditorPresenter : IStarSystemEditorPresenter
     {
         if (string.IsNullOrWhiteSpace(e.Value)) return;
 
-        _currentStarSystem.Description_Parsed = e.Value;
+        _currentStarSystem.Description_Desired = e.Value;
         _currentStarSystem.Description = $"{_currentStarSystem.InternalName}{Constants.DESCRIPTION_SUFFIX}";
     }
 
@@ -202,7 +202,7 @@ public class StarSystemEditorPresenter : IStarSystemEditorPresenter
         _currentStarSystem.InternalName = $"{_currentStarSystem.Name_Parsed}{Constants.Space.STAR_SYSTEM_SUFFIX}";
         var label = $"{_currentStarSystem.InternalName}{Constants.DISPLAYNAME_SUFFIX}";
         _currentStarSystem.DisplayName = label;
-        if (_currentStarSystem.Description == null && !string.IsNullOrWhiteSpace(_currentStarSystem.Description_Parsed))
+        if (_currentStarSystem.Description == null && !string.IsNullOrWhiteSpace(_currentStarSystem.Description_Desired))
         {
             _currentStarSystem.Description = $"{_currentStarSystem.InternalName}{Constants.DESCRIPTION_SUFFIX}";
         }
@@ -565,7 +565,7 @@ public class StarSystemEditorPresenter : IStarSystemEditorPresenter
         }
 
         _view.SetStarSystemName(_currentStarSystem.Name_Desired);
-        _view.SetStarSystemDescription(_currentStarSystem.Description_Parsed);
+        _view.SetStarSystemDescription(_currentStarSystem.Description_Desired);
     }
 
     private void OnOrbitLaneSaved(OrbitLane lane)

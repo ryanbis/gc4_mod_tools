@@ -7,8 +7,9 @@ namespace ModTools.Model.Race;
 public class SpecialValue {
     [XmlElement(ElementName="Special")]
     public string Special { get; set; }
-    [XmlElement(ElementName="ValueParam")]
-    public List<string> ValueParam { get; set; }
+
+    [XmlElement(ElementName = "ValueParam")]
+    public List<string> ValueParam { get; set; } = new();
     [XmlElement(ElementName="StringParam")]
     public string StringParam { get; set; }
     
@@ -16,7 +17,7 @@ public class SpecialValue {
     {
         unchecked
         {
-            var hashCode = Special.GetHashCode();
+            var hashCode = Special?.GetHashCode() ?? 0;
             foreach (var val in ValueParam)
             {
                 hashCode = (hashCode * 397) ^ val.GetHashCode();
