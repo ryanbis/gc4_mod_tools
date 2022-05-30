@@ -1,4 +1,5 @@
-﻿using ModTools.Model.Other;
+﻿using ModTools.Model.Events;
+using ModTools.Model.Other;
 using ModTools.Model.Race;
 using ModTools.View.Contracts;
 using ReaLTaiizor.Forms;
@@ -54,7 +55,7 @@ public partial class ColonyStatForm : CrownForm, IColonyStatView
         if (hasSpecialValue)
         {
             _specialValue = currentStat.SpecialValue;
-            specialTextBox.Text = currentStat.SpecialValue?.Special;
+            specialTextBox.Text = currentStat.SpecialValue?.Special.ToString();
             valueParamTextBox1.Text = currentStat.SpecialValue.ValueParam[0];
             valueParamTextBox2.Text = currentStat.SpecialValue.ValueParam[1];
             stringParamComboBox.SelectedItem = currentStat.SpecialValue.StringParam;
@@ -148,7 +149,7 @@ public partial class ColonyStatForm : CrownForm, IColonyStatView
 
     private void specialValueCheckChanged(object sender, EventArgs e)
     {
-        if (_specialValue == null) _specialValue = new SpecialValue { Special = specialTextBox.Text };
+        if (_specialValue == null) _specialValue = new SpecialValue { Special = Enum.Parse<SpecialValueType>(specialTextBox.Text) };
         UpdateTableLayout();
     }
 

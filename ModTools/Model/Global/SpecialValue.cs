@@ -1,4 +1,5 @@
 ﻿using System.Xml.Serialization;
+using ModTools.Model.Events;
 
 namespace ModTools.Model.Race;
 
@@ -6,7 +7,7 @@ namespace ModTools.Model.Race;
 [Serializable]
 public class SpecialValue {
     [XmlElement(ElementName="Special")]
-    public string Special { get; set; }
+    public SpecialValueType Special { get; set; }
 
     [XmlElement(ElementName = "ValueParam")]
     public List<string> ValueParam { get; set; } = new();
@@ -17,7 +18,7 @@ public class SpecialValue {
     {
         unchecked
         {
-            var hashCode = Special?.GetHashCode() ?? 0;
+            var hashCode = Special != null ? Special.ToString().GetHashCode() : 0;
             foreach (var val in ValueParam)
             {
                 hashCode = (hashCode * 397) ^ val.GetHashCode();
