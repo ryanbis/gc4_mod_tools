@@ -65,6 +65,10 @@ public partial class ApprovalModifierForm : CrownForm, IApprovalModifierView
         {
             tagComboBox.Items.Add("Custom");
         }
+        if (!_gameUsedTags.Contains(""))
+        {
+            tagComboBox.Items.Add("");
+        }
 
         var data = Utils.ProcessInGameList<ApprovalModifierType>(_gameUsedApprovalTypes, out _gameUsedApprovalTypes);
         typeComboBox.Items.Clear();
