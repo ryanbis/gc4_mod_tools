@@ -7,15 +7,24 @@ namespace ModTools.Services;
 public class RaceService : IRaceService
 {
     private readonly IGameFileCacheService _gameFileCache;
+    private GameUsedProperties _gameUsedProperties;
 
     
     public RaceService(IGameFileCacheService gameFileCache)
     {
         _gameFileCache = gameFileCache;
     }
-    
-    
-    public CitizenRaceList? LoadRaceList(string path)
+
+
+    public CitizenRaceList? LoadGameRaceList(string gamePlayFolderPath)
+    {
+        var list = LoadRaceList_private(
+            $"{gamePlayFolderPath}{Path.DirectorySeparatorChar}{Constants.Race.RACES_INSTALLED_FILENAME}");
+        AnalyzeRaces(list);
+        return list;
+    }
+
+    private CitizenRaceList? LoadRaceList_private(string path)
     {
         var raceList = (CitizenRaceList) null;
         try
@@ -50,6 +59,11 @@ public class RaceService : IRaceService
         }
 
         return raceList;
+    }
+
+    public CitizenRaceList? LoadRaceList(string path)
+    {
+        return LoadRaceList_private(path);
     }
     
     
@@ -112,9 +126,14 @@ public class RaceService : IRaceService
         newRaceList.SerializeToXml(modFilePath);
     }
 
-    public IRaceService.AnalyzeResult AnalyzeRaces(CitizenRaceList? raceList)
+    public GameUsedProperties GetGameUsedProperties()
     {
-        var result = new IRaceService.AnalyzeResult();
+        return _gameUsedProperties;
+    }
+
+    private void AnalyzeRaces(CitizenRaceList? raceList)
+    {
+        _gameUsedProperties = new GameUsedProperties();
         var globalStats = new HashSet<GlobalStats>();
         var colonyStats = new HashSet<ColonyStats>();
         var approvalModifiers = new HashSet<ApprovalModifiers>();
@@ -140,7 +159,7 @@ public class RaceService : IRaceService
             {
                 colonyStats.Add(stat);
                 effectTypes.Add(stat.EffectType);
-                bonusTypes.Add(stat.BonusType);
+                bonusTypes.Add(stat.BonusType.ToString());
                 specialValues.Add(stat.SpecialValue);
                 targets.Add(stat.Target.TargetType);
                 colonyValueTypes.Add(stat.ValueType);
@@ -156,26 +175,25 @@ public class RaceService : IRaceService
             consumedTraits.Add(race.ConsumedTrait);
         });
         specialValues.Remove(null);
-        result.ApprovalTypes = approvalTypes;
         approvalTags.Remove(null);
-        result.ApprovalTags = approvalTags;
-        result.SpecialValue = specialValues.ToList()[0];
-        result.TargetTypes = targets;
-        result.BonusTypes = bonusTypes;
-        result.EffectTypes = effectTypes;
         if (defaultTraits.Contains(null))
         {
             defaultTraits.Remove(null);
             defaultTraits.Add("");
         }
-        result.DefaultTraits = defaultTraits;
         if (consumedTraits.Contains(null))
         {
             consumedTraits.Remove(null);
             consumedTraits.Add("");
         }
-        result.ConsumedTraits = consumedTraits;
-        return result;
+        _gameUsedProperties.ApprovalTags = approvalTags;
+        _gameUsedProperties.ApprovalTypes = approvalTypes;
+        _gameUsedProperties.BonusTypes = bonusTypes;
+        _gameUsedProperties.ConsumedTraits = consumedTraits;
+        _gameUsedProperties.DefaultTraits = defaultTraits;
+        _gameUsedProperties.EffectTypes = effectTypes;
+        _gameUsedProperties.TargetTypes = targets;
+        _gameUsedProperties.SpecialValues = specialValues;
     }
     
     private void AppendInGameRaceText(IRaceService.SaveRaceObject saveRaceObject, string description, string displayName, string textDir)

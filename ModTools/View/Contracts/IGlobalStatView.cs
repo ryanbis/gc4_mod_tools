@@ -4,6 +4,6 @@ namespace ModTools.View.Contracts;
 
 public interface IGlobalStatView : IOnSaveView<GlobalStats>
 {
-    DialogResult ShowAddGlobalStatDialog(IEnumerable<string>? targetTypes, IEnumerable<string>? bonusTypes, IEnumerable<string>? effectTypes, OnSave saveDelegate);
-    DialogResult ShowAddGlobalStatDialog(IEnumerable<string>? targetTypes, IEnumerable<string>? bonusTypes, IEnumerable<string>? effectTypes, GlobalStats currentStat, OnSave saveDelegate);
+    DialogResult ShowAddGlobalStatDialog(IEnumerable<string>? gameUsedTargetTypes, IEnumerable<string>? gameUsedBonusTypes, IEnumerable<string>? gameUsedEffectTypes, OnSave saveDelegate);
+    DialogResult ShowAddGlobalStatDialog(IEnumerable<string>? gameUsedTargetTypes, IEnumerable<string>? gameUsedBonusTypes, IEnumerable<string>? gameUsedEffectTypes, GlobalStats currentStat, OnSave saveDelegate);
 }

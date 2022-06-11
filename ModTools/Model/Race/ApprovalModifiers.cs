@@ -12,7 +12,7 @@ public class ApprovalModifiers {
     [XmlElement(ElementName="BonusType")]
     public string BonusType { get; set; }
     [XmlElement(ElementName="Tag")]
-    public string Tag { get; set; }
+    public string? Tag { get; set; }
     
     public override int GetHashCode()
     {

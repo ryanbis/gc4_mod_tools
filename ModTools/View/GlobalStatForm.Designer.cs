@@ -34,24 +34,24 @@ partial class GlobalStatForm
     private void InitializeComponent()
     {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.effectTypeComboBox = new CrownComboBox();
-            this.bonusTypeComboBox = new CrownComboBox();
-            this.label4 = new CrownLabel();
-            this.label3 = new CrownLabel();
-            this.label2 = new CrownLabel();
-            this.label1 = new CrownLabel();
-            this.targetTypeComboBox = new CrownComboBox();
-            this.valueTextBox = new CrownTextBox();
-            this.button1 = new CrownButton();
-            this.button2 = new CrownButton();
+            this.effectTypeComboBox = new ModCrownComboBox();
+            this.bonusTypeComboBox = new ModTools.View.ModCrownComboBox();
+            this.label4 = new ReaLTaiizor.Controls.CrownLabel();
+            this.label3 = new ReaLTaiizor.Controls.CrownLabel();
+            this.label2 = new ReaLTaiizor.Controls.CrownLabel();
+            this.label1 = new ReaLTaiizor.Controls.CrownLabel();
+            this.targetTypeComboBox = new ModCrownComboBox();
+            this.valueTextBox = new ReaLTaiizor.Controls.CrownTextBox();
+            this.button1 = new ReaLTaiizor.Controls.CrownButton();
+            this.button2 = new ReaLTaiizor.Controls.CrownButton();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 48.25688F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 51.74312F));
             this.tableLayoutPanel1.Controls.Add(this.effectTypeComboBox, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.bonusTypeComboBox, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.label4, 0, 3);
@@ -67,34 +67,39 @@ partial class GlobalStatForm
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(367, 149);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(545, 149);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // effectTypeComboBox
             // 
             this.effectTypeComboBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.effectTypeComboBox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.effectTypeComboBox.FormattingEnabled = true;
-            this.effectTypeComboBox.Location = new System.Drawing.Point(191, 78);
+            this.effectTypeComboBox.Location = new System.Drawing.Point(271, 78);
             this.effectTypeComboBox.Margin = new System.Windows.Forms.Padding(8, 3, 3, 8);
             this.effectTypeComboBox.Name = "effectTypeComboBox";
-            this.effectTypeComboBox.Size = new System.Drawing.Size(173, 23);
+            this.effectTypeComboBox.Size = new System.Drawing.Size(271, 24);
             this.effectTypeComboBox.TabIndex = 3;
+            this.effectTypeComboBox.DrawTextItem += new ModCrownComboBox.DrawItemTextColorEventHandler(this.effectTypeComboBoxDrawItem);
             this.effectTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.effectTypeSelected);
             // 
             // bonusTypeComboBox
             // 
+            this.bonusTypeComboBox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.bonusTypeComboBox.FormattingEnabled = true;
-            this.bonusTypeComboBox.Location = new System.Drawing.Point(191, 40);
+            this.bonusTypeComboBox.Location = new System.Drawing.Point(271, 40);
             this.bonusTypeComboBox.Margin = new System.Windows.Forms.Padding(8, 3, 3, 8);
             this.bonusTypeComboBox.Name = "bonusTypeComboBox";
-            this.bonusTypeComboBox.Size = new System.Drawing.Size(173, 23);
+            this.bonusTypeComboBox.Size = new System.Drawing.Size(271, 24);
             this.bonusTypeComboBox.TabIndex = 3;
+            this.bonusTypeComboBox.DrawTextItem += new ModCrownComboBox.DrawItemTextColorEventHandler(this.bonusTypeComboBoxDrawItem);
             this.bonusTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.bonusTypeSelected);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.label4.Location = new System.Drawing.Point(3, 119);
             this.label4.Margin = new System.Windows.Forms.Padding(3, 8, 3, 8);
             this.label4.Name = "label4";
@@ -106,6 +111,7 @@ partial class GlobalStatForm
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.label3.Location = new System.Drawing.Point(3, 82);
             this.label3.Margin = new System.Windows.Forms.Padding(3, 8, 3, 8);
             this.label3.Name = "label3";
@@ -117,6 +123,7 @@ partial class GlobalStatForm
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.label2.Location = new System.Drawing.Point(3, 45);
             this.label2.Margin = new System.Windows.Forms.Padding(3, 8, 3, 8);
             this.label2.Name = "label2";
@@ -128,6 +135,7 @@ partial class GlobalStatForm
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.label1.Location = new System.Drawing.Point(3, 8);
             this.label1.Margin = new System.Windows.Forms.Padding(3, 8, 3, 8);
             this.label1.Name = "label1";
@@ -137,26 +145,32 @@ partial class GlobalStatForm
             // 
             // targetTypeComboBox
             // 
+            this.targetTypeComboBox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.targetTypeComboBox.FormattingEnabled = true;
-            this.targetTypeComboBox.Location = new System.Drawing.Point(191, 3);
+            this.targetTypeComboBox.Location = new System.Drawing.Point(271, 3);
             this.targetTypeComboBox.Margin = new System.Windows.Forms.Padding(8, 3, 3, 8);
             this.targetTypeComboBox.Name = "targetTypeComboBox";
-            this.targetTypeComboBox.Size = new System.Drawing.Size(173, 23);
+            this.targetTypeComboBox.Size = new System.Drawing.Size(271, 24);
             this.targetTypeComboBox.TabIndex = 2;
+            this.targetTypeComboBox.DrawTextItem += new ModCrownComboBox.DrawItemTextColorEventHandler(this.targetTypeComboBoxDrawItem);
             this.targetTypeComboBox.SelectedValueChanged += new System.EventHandler(this.targetTypeSelected);
             // 
             // valueTextBox
             // 
-            this.valueTextBox.Location = new System.Drawing.Point(191, 119);
+            this.valueTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(73)))), ((int)(((byte)(74)))));
+            this.valueTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.valueTextBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.valueTextBox.Location = new System.Drawing.Point(271, 119);
             this.valueTextBox.Margin = new System.Windows.Forms.Padding(8, 8, 3, 8);
             this.valueTextBox.Name = "valueTextBox";
-            this.valueTextBox.Size = new System.Drawing.Size(173, 23);
+            this.valueTextBox.Size = new System.Drawing.Size(271, 23);
             this.valueTextBox.TabIndex = 4;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(355, 166);
+            this.button1.Location = new System.Drawing.Point(499, 165);
             this.button1.Name = "button1";
+            this.button1.Padding = new System.Windows.Forms.Padding(5);
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 1;
             this.button1.Text = "Save";
@@ -164,8 +178,9 @@ partial class GlobalStatForm
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(264, 166);
+            this.button2.Location = new System.Drawing.Point(408, 165);
             this.button2.Name = "button2";
+            this.button2.Padding = new System.Windows.Forms.Padding(5);
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 2;
             this.button2.Text = "Cancel";
@@ -175,7 +190,7 @@ partial class GlobalStatForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(439, 203);
+            this.ClientSize = new System.Drawing.Size(583, 204);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.tableLayoutPanel1);
@@ -190,13 +205,13 @@ partial class GlobalStatForm
     #endregion
 
     private TableLayoutPanel tableLayoutPanel1;
-    private CrownComboBox effectTypeComboBox;
-    private CrownComboBox bonusTypeComboBox;
+    private ModCrownComboBox effectTypeComboBox;
+    private ModCrownComboBox bonusTypeComboBox;
     private CrownLabel label4;
     private CrownLabel label3;
     private CrownLabel label2;
     private CrownLabel label1;
-    private CrownComboBox targetTypeComboBox;
+    private ModCrownComboBox targetTypeComboBox;
     private CrownTextBox valueTextBox;
     private CrownButton button1;
     private CrownButton button2;

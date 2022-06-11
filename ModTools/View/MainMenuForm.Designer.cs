@@ -31,10 +31,13 @@ partial class MainMenuForm
     /// </summary>
     private void InitializeComponent()
     {
+            this.components = new System.ComponentModel.Container();
             this.raceEditorButton = new ReaLTaiizor.Controls.SpaceButton();
             this.settingsButton = new ReaLTaiizor.Controls.SpaceButton();
             this.starSystemEditorButton = new ReaLTaiizor.Controls.SpaceButton();
             this.spaceButton3 = new ReaLTaiizor.Controls.SpaceButton();
+            this.eventEditorButton = new ReaLTaiizor.Controls.SpaceButton();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // raceEditorButton
@@ -59,7 +62,7 @@ partial class MainMenuForm
             this.settingsButton.Customization = "Kioq/zIyMv8yMjL/Kioq/y8vL/8nJyf//v7+/yMjI/8qKir/";
             this.settingsButton.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.settingsButton.Image = null;
-            this.settingsButton.Location = new System.Drawing.Point(12, 143);
+            this.settingsButton.Location = new System.Drawing.Point(286, 12);
             this.settingsButton.Name = "settingsButton";
             this.settingsButton.NoRounding = false;
             this.settingsButton.Size = new System.Drawing.Size(195, 40);
@@ -101,6 +104,23 @@ partial class MainMenuForm
             this.spaceButton3.TextAlignment = System.Windows.Forms.HorizontalAlignment.Center;
             this.spaceButton3.Transparent = false;
             // 
+            // eventEditorButton
+            // 
+            this.eventEditorButton.BackColor = System.Drawing.SystemColors.Desktop;
+            this.eventEditorButton.Customization = "Kioq/zIyMv8yMjL/Kioq/y8vL/8nJyf//v7+/yMjI/8qKir/";
+            this.eventEditorButton.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.eventEditorButton.Image = null;
+            this.eventEditorButton.Location = new System.Drawing.Point(12, 144);
+            this.eventEditorButton.Name = "eventEditorButton";
+            this.eventEditorButton.NoRounding = false;
+            this.eventEditorButton.Size = new System.Drawing.Size(195, 40);
+            this.eventEditorButton.TabIndex = 4;
+            this.eventEditorButton.Text = "Event Editor";
+            this.eventEditorButton.TextAlignment = System.Windows.Forms.HorizontalAlignment.Center;
+            this.eventEditorButton.Transparent = false;
+            this.eventEditorButton.Click += new System.EventHandler(this.eventEditorButtonClicked);
+            this.eventEditorButton.Enabled = false;
+            // 
             // MainMenuForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -108,7 +128,8 @@ partial class MainMenuForm
             this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.Desktop;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(426, 288);
+            this.ClientSize = new System.Drawing.Size(493, 289);
+            this.Controls.Add(this.eventEditorButton);
             this.Controls.Add(this.spaceButton3);
             this.Controls.Add(this.starSystemEditorButton);
             this.Controls.Add(this.settingsButton);
@@ -125,4 +146,6 @@ partial class MainMenuForm
     private ReaLTaiizor.Controls.SpaceButton settingsButton;
     private ReaLTaiizor.Controls.SpaceButton starSystemEditorButton;
     private ReaLTaiizor.Controls.SpaceButton spaceButton3;
+    private ReaLTaiizor.Controls.SpaceButton eventEditorButton;
+    private ToolTip toolTip;
 }

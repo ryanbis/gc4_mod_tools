@@ -1,4 +1,5 @@
 ﻿using System.Xml.Serialization;
+using ModTools.Model.Events;
 
 namespace ModTools.Model.Race;
 
@@ -10,7 +11,7 @@ public class ColonyStats {
     [XmlElement(ElementName="Target")]
     public Target Target { get; set; }
     [XmlElement(ElementName="BonusType")]
-    public string BonusType { get; set; }
+    public ModifierBonusType BonusType { get; set; }
 
     [XmlElement(ElementName = "Value")]
     public string? Value { get; set; }

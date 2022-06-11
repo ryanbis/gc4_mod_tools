@@ -1,16 +1,20 @@
-﻿using ModTools.Model.Race;
+﻿using System.Drawing.Drawing2D;
+using ModTools.Model.Events;
+using ModTools.Model.Race;
 using ModTools.View.Contracts;
+using ReaLTaiizor.Controls;
 using ReaLTaiizor.Forms;
+using System.Windows.Forms;
 
 namespace ModTools.View;
 
 public partial class GlobalStatForm : CrownForm, IGlobalStatView
 {
-    private IEnumerable<string>? _targetTypes;
+    private IEnumerable<string>? _gameUsedTargetTypes;
     private string _selectedTarget;
-    private IEnumerable<string>? _bonusTypes;
+    private IEnumerable<string>? _gameUsedBonusTypes;
     private string _selectedBonus;
-    private IEnumerable<string>? _effectTypes;
+    private IEnumerable<string>? _gameUsedEffectTypes;
     private string _selectedEffect;
     private IGlobalStatView.OnSave _saveDelegate;
 
@@ -53,16 +57,14 @@ public partial class GlobalStatForm : CrownForm, IGlobalStatView
         _selectedEffect = (sender as ComboBox).SelectedItem.ToString();
     }
 
-    public DialogResult ShowAddGlobalStatDialog(IEnumerable<string>? targetTypes, IEnumerable<string>? bonusTypes, IEnumerable<string>? effectTypes,
+    public DialogResult ShowAddGlobalStatDialog(IEnumerable<string>? gameUsedTargetTypes, IEnumerable<string>? gameUsedBonusTypes, IEnumerable<string>? gameUsedEffectTypes,
         GlobalStats currentStat, IOnSaveView<GlobalStats>.OnSave saveDelegate)
     {
-        _targetTypes = targetTypes;
-        _bonusTypes = bonusTypes;
-        _effectTypes = effectTypes;
+        _gameUsedTargetTypes = gameUsedTargetTypes;
+        _gameUsedBonusTypes = gameUsedBonusTypes;
+        _gameUsedEffectTypes = gameUsedEffectTypes;
         _saveDelegate = saveDelegate;
-        targetTypeComboBox.Items.AddRange(_targetTypes.ToArray());
-        bonusTypeComboBox.Items.AddRange(_bonusTypes.ToArray());
-        effectTypeComboBox.Items.AddRange(_effectTypes.ToArray());
+        UpdateComboBoxes();
         targetTypeComboBox.SelectedItem = currentStat.Target.TargetType;
         bonusTypeComboBox.SelectedItem = currentStat.BonusType;
         effectTypeComboBox.SelectedItem = currentStat.EffectType;
@@ -70,16 +72,46 @@ public partial class GlobalStatForm : CrownForm, IGlobalStatView
         return ShowDialog();
     }
 
-    public DialogResult ShowAddGlobalStatDialog(IEnumerable<string>? targetTypes, IEnumerable<string>? bonusTypes, IEnumerable<string>? effectTypes,
+    public DialogResult ShowAddGlobalStatDialog(IEnumerable<string>? gameUsedTargetTypes, IEnumerable<string>? gameUsedBonusTypes, IEnumerable<string>? gameUsedEffectTypes,
         IGlobalStatView.OnSave saveDelegate)
     {
-        _targetTypes = targetTypes;
-        _bonusTypes = bonusTypes;
-        _effectTypes = effectTypes;
+        _gameUsedTargetTypes = gameUsedTargetTypes;
+        _gameUsedBonusTypes = gameUsedBonusTypes;
+        _gameUsedEffectTypes = gameUsedEffectTypes;
         _saveDelegate = saveDelegate;
-        targetTypeComboBox.Items.AddRange(_targetTypes.ToArray());
-        bonusTypeComboBox.Items.AddRange(_bonusTypes.ToArray());
-        effectTypeComboBox.Items.AddRange(_effectTypes.ToArray());
+        UpdateComboBoxes();
+        bonusTypeComboBox.SelectedIndex = 0;
         return ShowDialog();
     }
+
+    private void UpdateComboBoxes()
+    {
+        var data = Utils.ProcessInGameList<TargetType>(_gameUsedTargetTypes, out _gameUsedTargetTypes);
+        targetTypeComboBox.Items.Clear();
+        targetTypeComboBox.Items.AddRange(data);
+
+        data = Utils.ProcessInGameList<ModifierBonusType>(_gameUsedBonusTypes, out _gameUsedBonusTypes);
+        bonusTypeComboBox.Items.Clear();
+        bonusTypeComboBox.Items.AddRange(data);
+
+        data = Utils.ProcessInGameList<StatType>(_gameUsedEffectTypes, out _gameUsedEffectTypes);
+        effectTypeComboBox.Items.Clear();
+        effectTypeComboBox.Items.AddRange(data);
+    }
+
+    private Color? targetTypeComboBoxDrawItem(object sender, DrawItemEventArgs e)
+    {
+        return Utils.getTextColorForModCrownComboBox(sender, e, _gameUsedTargetTypes);
+    }
+
+    private Color? bonusTypeComboBoxDrawItem(object sender, DrawItemEventArgs e)
+    {
+        return Utils.getTextColorForModCrownComboBox(sender, e, _gameUsedBonusTypes);
+    }
+
+    private Color? effectTypeComboBoxDrawItem(object sender, DrawItemEventArgs e)
+    {
+        return Utils.getTextColorForModCrownComboBox(sender, e, _gameUsedEffectTypes);
+    }
+    
 }

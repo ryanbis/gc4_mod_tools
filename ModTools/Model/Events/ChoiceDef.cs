@@ -9,7 +9,7 @@ public class ChoiceDef
     public CulturalAlignmentType Type { get; set; }
     
     [XmlElement]
-    public string Description { get; set; }
+    public string? Description { get; set; }
     
     [XmlElement]
     public string? BonusDescription { get; set; }

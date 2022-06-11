@@ -10,7 +10,7 @@ public class Trigger
     public OnEventType OnEvent { get; set; }
     
     [XmlElement]
-    public string Name { get; set; }
+    public string? Name { get; set; }
     
     [XmlElement(ElementName = "CriteriaCampaignID")]
     public List<string>? CriteriaCampaignID { get; set; }
