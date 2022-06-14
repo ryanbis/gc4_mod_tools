@@ -60,5 +60,18 @@ namespace ModTools.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static System.Drawing.Bitmap scrollbar_arrow_hot
+        {
+            get
+            {
+                object obj = ResourceManager.GetObject("scrollbar_arrow_hot", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
     }
 }

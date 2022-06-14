@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using ModTools.View.Contracts;
+using ReaLTaiizor.Controls;
 using ReaLTaiizor.Forms;
 
 namespace ModTools.View;
@@ -9,6 +10,7 @@ public partial class MainMenuForm : CrownForm, IMainMenuView
     public event EventHandler? RaceButtonClicked;
     public event EventHandler? StarSystemButtonClicked;
     public event EventHandler? SettingsButtonClicked;
+    public event EventHandler? EventButtonClicked;
 
 
     public MainMenuForm()
@@ -25,6 +27,11 @@ public partial class MainMenuForm : CrownForm, IMainMenuView
     public void SetStarSystemEditorEnabled(bool enabled)
     {
         starSystemEditorButton.Enabled = enabled;
+    }
+
+    public void SetEventEditorEnabled(bool enabled)
+    {
+        eventEditorButton.Enabled = enabled;
     }
 
     public Form Form()
@@ -45,5 +52,10 @@ public partial class MainMenuForm : CrownForm, IMainMenuView
     private void settingsButtonClicked(object sender, EventArgs e)
     {
         SettingsButtonClicked?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void eventEditorButtonClicked(object sender, EventArgs e)
+    {
+        EventButtonClicked?.Invoke(this, EventArgs.Empty);
     }
 }

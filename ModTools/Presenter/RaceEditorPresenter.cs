@@ -20,17 +20,7 @@ public class RaceEditorPresenter : IRaceEditorPresenter
     private string? ModFolderPath { get; set; }
     private string? GamePlayFolderPath { get; set; }
     private string? GameInstallFolderPath { get; set; }
-
-    private IEnumerable<string>? TargetTypes { get; set; }
-    private IEnumerable<string>? BonusTypes { get; set; }
-    private IEnumerable<string>? EffectTypes { get; set; }
-    private SpecialValue? SpecialValue { get; set; }
-    private IEnumerable<string>? Types { get; set; }
-    private IEnumerable<string>? Tags { get; set; }
-    private IEnumerable<string>? DefaultTraits { get; set; }
-    private IEnumerable<string>? ConsumedTraits { get; set; }
     
-    private readonly LocalStorage _storage;
     private readonly ISettingsService _settingsService;
     private readonly IServiceProvider _serviceProvider;
     private readonly IImageService _imageService;
@@ -41,12 +31,10 @@ public class RaceEditorPresenter : IRaceEditorPresenter
     private HashSet<string> CitizenPortraitList { get; set; } = new();
 
 
-    public RaceEditorPresenter(IRaceEditorView view, ISettingsService settingsService, LocalStorage localStorage,
-        IImageService imageService, IRaceService raceService, IGenericDialogView dialogView,
-        IServiceProvider serviceProvider)
+    public RaceEditorPresenter(IRaceEditorView view, ISettingsService settingsService, IImageService imageService,
+        IRaceService raceService, IGenericDialogView dialogView, IServiceProvider serviceProvider)
     {
         _view = view;
-        _storage = localStorage;
         _settingsService = settingsService;
         _serviceProvider = serviceProvider;
         _imageService = imageService;
@@ -148,7 +136,13 @@ public class RaceEditorPresenter : IRaceEditorPresenter
         var currentMod = CurrentRace.ApprovalModifiers.FirstOrDefault(am => am.Type.Equals(e.Value));
         if (currentMod != null)
         {
-            approvalModView.ShowAddApprovalModifierDialog(Types, BonusTypes, Tags, currentMod, stat =>
+            var props = _raceService.GetGameUsedProperties();
+            approvalModView.ShowAddApprovalModifierDialog(
+                props.ApprovalTypes,
+                props.BonusTypes, 
+                props.ApprovalTags,
+                currentMod, 
+                stat =>
             {
                 CurrentRace.ApprovalModifiers.Remove(currentMod);
                 CurrentRace.ApprovalModifiers.Add(stat);
@@ -163,7 +157,11 @@ public class RaceEditorPresenter : IRaceEditorPresenter
         var currentStat = CurrentRace.ColonyStats.FirstOrDefault(cs => cs.EffectType.Equals(e.Value));
         if (currentStat != null)
         {
-            colonyStatsView.ShowAddColonyStatDialog(TargetTypes, BonusTypes, EffectTypes, currentStat,
+            var props = _raceService.GetGameUsedProperties();
+            colonyStatsView.ShowAddColonyStatDialog(
+                props.TargetTypes, 
+                props.BonusTypes,
+                props.EffectTypes, currentStat,
                 stat =>
                 {
                     CurrentRace.ColonyStats.Remove(currentStat);
@@ -179,7 +177,11 @@ public class RaceEditorPresenter : IRaceEditorPresenter
         var currentStat = CurrentRace.GlobalStats.FirstOrDefault(gs => gs.EffectType.Equals(e.Value));
         if (currentStat != null)
         {
-            globalStatsView.ShowAddGlobalStatDialog(TargetTypes, BonusTypes, EffectTypes, currentStat, stat =>
+            var props = _raceService.GetGameUsedProperties();
+            globalStatsView.ShowAddGlobalStatDialog(
+                props.TargetTypes, 
+                props.BonusTypes, 
+                props.EffectTypes, currentStat, stat =>
             {
                 CurrentRace.GlobalStats.Remove(currentStat);
                 CurrentRace.GlobalStats.Add(stat);
@@ -283,7 +285,12 @@ public class RaceEditorPresenter : IRaceEditorPresenter
     private void OnAddApprovalModifiersClicked(object? sender, EventArgs e)
     {
         var approvalModifierView = _serviceProvider.GetRequiredService<IApprovalModifierView>();
-        approvalModifierView.ShowAddApprovalModifierDialog(Types, BonusTypes, Tags, mod =>
+        var props = _raceService.GetGameUsedProperties();
+        approvalModifierView.ShowAddApprovalModifierDialog(
+            props.ApprovalTypes, 
+            props.BonusTypes,
+            props.ApprovalTags,
+            mod =>
         {
             CurrentRace.ApprovalModifiers.Add(mod);
             UpdateUi();
@@ -309,7 +316,11 @@ public class RaceEditorPresenter : IRaceEditorPresenter
     private void OnAddColonyStatClicked(object? sender, EventArgs e)
     {
         var colonyStatsView = _serviceProvider.GetRequiredService<IColonyStatView>();
-        colonyStatsView.ShowAddColonyStatDialog(TargetTypes, BonusTypes, EffectTypes, stat =>
+        var props = _raceService.GetGameUsedProperties();
+        colonyStatsView.ShowAddColonyStatDialog(
+            props.TargetTypes, 
+            props.BonusTypes, 
+            props.EffectTypes, stat =>
         {
             CurrentRace.ColonyStats.Add(stat);
             UpdateUi();
@@ -336,7 +347,11 @@ public class RaceEditorPresenter : IRaceEditorPresenter
     private void OnAddGlobalStatClicked(object? sender, EventArgs e)
     {
         var globalStatsView = _serviceProvider.GetRequiredService<IGlobalStatView>();
-        globalStatsView.ShowAddGlobalStatDialog(TargetTypes, BonusTypes, EffectTypes, stat =>
+        var props = _raceService.GetGameUsedProperties();
+        globalStatsView.ShowAddGlobalStatDialog(
+            props.TargetTypes, 
+            props.BonusTypes, 
+            props.EffectTypes, stat =>
         {
             CurrentRace.GlobalStats.Add(stat);
             UpdateUi();
@@ -450,7 +465,7 @@ public class RaceEditorPresenter : IRaceEditorPresenter
 
     private void LoadRaceDefs()
     {
-        var raceList = _raceService.LoadRaceList(GamePlayFolderPath + Constants.Race.RACES_INSTALLED_FILENAME);
+        var raceList = _raceService.LoadGameRaceList(GamePlayFolderPath);
 
         if (raceList == null)
         {
@@ -461,23 +476,12 @@ public class RaceEditorPresenter : IRaceEditorPresenter
         }
 
         RaceList = raceList;
-        AnalyzeData();
-        _view.SetConsumedTraits(ConsumedTraits);
-        _view.SetDefaultTraits(DefaultTraits);
+        var props = _raceService.GetGameUsedProperties();
+        _view.SetConsumedTraits(props.ConsumedTraits);
+        _view.SetDefaultTraits(props.DefaultTraits);
         _view.SetBaseRaces(RaceList.CitizenRaces.Select(race => race.Name_Parsed));
     }
 
-    private void AnalyzeData()
-    {
-        var result = _raceService.AnalyzeRaces(RaceList);
-        Types = result.ApprovalTypes;
-        Tags = result.ApprovalTags;
-        TargetTypes = result.TargetTypes;
-        BonusTypes = result.BonusTypes;
-        EffectTypes = result.EffectTypes;
-        DefaultTraits = result.DefaultTraits;
-        ConsumedTraits = result.ConsumedTraits;
-    }
 
     public void Show()
     {

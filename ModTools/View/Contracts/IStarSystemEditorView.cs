@@ -9,6 +9,7 @@ public interface IStarSystemEditorView : IView
     event EventHandler<DataArg<string>> StarNameChanged;
     event EventHandler<DataArg<string>> StarSystemNameChanged;
     event EventHandler<DataArg<string>> StarSystemDescriptionChanged;
+    event EventHandler<DataArg<string>> CurrentStarSystemItemDoubleClicked;
     event EventHandler<DataArg<int?>> PositionTextChanged;
     event EventHandler<DataArg<string>> PlanetNameChanged;
     event EventHandler<DataArg<int?>> PlanetClassChanged;
@@ -33,6 +34,7 @@ public interface IStarSystemEditorView : IView
     public event EventHandler<DataArg<int?>>? SystemToCopyIndexSelected;
 
     string? GetSelectedStar();
+    void SetModType(string modType);
     void AllowPlanetClassDistributionEdits(bool allow);
     void SetStarSystemName(string name);
     void SetStarSystemDescription(string description);
@@ -57,7 +59,7 @@ public interface IStarSystemEditorView : IView
     void SetPlanetFertility(string fertility);
     void SetPlanetInflunce(string influence);
     void SetBodyLabelText(string text);
-    void SetPosition(int? position);
+    void SetPosition(string? position);
     void ShowDescription(bool show);
     void ShowLaneBodies(bool show);
     void ShowBody(bool show);

@@ -41,12 +41,12 @@ partial class ColonyStatForm
             this.crownLabel4 = new ReaLTaiizor.Controls.CrownLabel();
             this.valueParamTextBox2 = new ReaLTaiizor.Controls.CrownTextBox();
             this.label5 = new ReaLTaiizor.Controls.CrownLabel();
-            this.effectTypeComboBox = new ReaLTaiizor.Controls.CrownComboBox();
-            this.bonusTypeComboBox = new ReaLTaiizor.Controls.CrownComboBox();
+            this.effectTypeComboBox = new ModCrownComboBox();
+            this.bonusTypeComboBox = new ModCrownComboBox();
             this.label3 = new ReaLTaiizor.Controls.CrownLabel();
             this.label2 = new ReaLTaiizor.Controls.CrownLabel();
             this.label1 = new ReaLTaiizor.Controls.CrownLabel();
-            this.targetTypeComboBox = new ReaLTaiizor.Controls.CrownComboBox();
+            this.targetTypeComboBox = new ModCrownComboBox();
             this.specialValueCheckBox = new ReaLTaiizor.Controls.CrownCheckBox();
             this.valueTextBox = new ReaLTaiizor.Controls.CrownTextBox();
             this.specialTextBox = new ReaLTaiizor.Controls.CrownTextBox();
@@ -58,7 +58,7 @@ partial class ColonyStatForm
             // 
             // saveButton
             // 
-            this.saveButton.Location = new System.Drawing.Point(408, 12);
+            this.saveButton.Location = new System.Drawing.Point(519, 12);
             this.saveButton.Name = "saveButton";
             this.saveButton.Padding = new System.Windows.Forms.Padding(5);
             this.saveButton.Size = new System.Drawing.Size(75, 23);
@@ -75,9 +75,10 @@ partial class ColonyStatForm
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.Controls.Add(this.crownLabel1, 0, 7);
             this.tableLayoutPanel1.Controls.Add(this.crownLabel2, 0, 6);
+            this.tableLayoutPanel1.Controls.Add(this.valueTextBox, 1, 8);
             this.tableLayoutPanel1.Controls.Add(this.crownLabel3, 0, 5);
-            this.tableLayoutPanel1.Controls.Add(this.crownLabel4, 0, 4);
             this.tableLayoutPanel1.Controls.Add(this.valueParamTextBox2, 1, 6);
+            this.tableLayoutPanel1.Controls.Add(this.crownLabel4, 0, 4);
             this.tableLayoutPanel1.Controls.Add(this.label5, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.effectTypeComboBox, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.bonusTypeComboBox, 1, 1);
@@ -86,7 +87,6 @@ partial class ColonyStatForm
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.targetTypeComboBox, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.specialValueCheckBox, 1, 3);
-            this.tableLayoutPanel1.Controls.Add(this.valueTextBox, 1, 8);
             this.tableLayoutPanel1.Controls.Add(this.specialTextBox, 1, 4);
             this.tableLayoutPanel1.Controls.Add(this.label6, 0, 8);
             this.tableLayoutPanel1.Controls.Add(this.valueParamTextBox1, 1, 5);
@@ -104,7 +104,7 @@ partial class ColonyStatForm
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(368, 353);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(494, 353);
             this.tableLayoutPanel1.TabIndex = 3;
             // 
             // crownLabel1
@@ -115,9 +115,9 @@ partial class ColonyStatForm
             this.crownLabel1.Location = new System.Drawing.Point(3, 282);
             this.crownLabel1.Margin = new System.Windows.Forms.Padding(3, 8, 3, 8);
             this.crownLabel1.Name = "crownLabel1";
-            this.crownLabel1.Size = new System.Drawing.Size(99, 21);
+            this.crownLabel1.Size = new System.Drawing.Size(241, 21);
             this.crownLabel1.TabIndex = 7;
-            this.crownLabel1.Text = "String Param";
+            this.crownLabel1.Text = "String Param (Strategic Resource)";
             // 
             // crownLabel2
             // 
@@ -127,9 +127,9 @@ partial class ColonyStatForm
             this.crownLabel2.Location = new System.Drawing.Point(3, 243);
             this.crownLabel2.Margin = new System.Windows.Forms.Padding(3, 8, 3, 8);
             this.crownLabel2.Name = "crownLabel2";
-            this.crownLabel2.Size = new System.Drawing.Size(92, 21);
+            this.crownLabel2.Size = new System.Drawing.Size(218, 21);
             this.crownLabel2.TabIndex = 8;
-            this.crownLabel2.Text = "ValueParam";
+            this.crownLabel2.Text = "ValueParam (Increment Value)";
             // 
             // crownLabel3
             // 
@@ -139,9 +139,9 @@ partial class ColonyStatForm
             this.crownLabel3.Location = new System.Drawing.Point(3, 204);
             this.crownLabel3.Margin = new System.Windows.Forms.Padding(3, 8, 3, 8);
             this.crownLabel3.Name = "crownLabel3";
-            this.crownLabel3.Size = new System.Drawing.Size(92, 21);
+            this.crownLabel3.Size = new System.Drawing.Size(198, 21);
             this.crownLabel3.TabIndex = 9;
-            this.crownLabel3.Text = "ValueParam";
+            this.crownLabel3.Text = "ValueParam (StartingValue)";
             // 
             // crownLabel4
             // 
@@ -160,7 +160,7 @@ partial class ColonyStatForm
             this.valueParamTextBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(73)))), ((int)(((byte)(74)))));
             this.valueParamTextBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.valueParamTextBox2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.valueParamTextBox2.Location = new System.Drawing.Point(192, 243);
+            this.valueParamTextBox2.Location = new System.Drawing.Point(255, 243);
             this.valueParamTextBox2.Margin = new System.Windows.Forms.Padding(8, 8, 3, 8);
             this.valueParamTextBox2.Name = "valueParamTextBox2";
             this.valueParamTextBox2.Size = new System.Drawing.Size(173, 23);
@@ -184,25 +184,25 @@ partial class ColonyStatForm
             this.effectTypeComboBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.effectTypeComboBox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.effectTypeComboBox.FormattingEnabled = true;
-            this.effectTypeComboBox.Location = new System.Drawing.Point(192, 88);
+            this.effectTypeComboBox.Location = new System.Drawing.Point(255, 88);
             this.effectTypeComboBox.Margin = new System.Windows.Forms.Padding(8, 8, 3, 8);
             this.effectTypeComboBox.Name = "effectTypeComboBox";
             this.effectTypeComboBox.Size = new System.Drawing.Size(173, 24);
             this.effectTypeComboBox.TabIndex = 3;
+            this.effectTypeComboBox.DrawTextItem += effectTypeComboBoxOnDrawTextItem; 
             this.effectTypeComboBox.SelectedValueChanged += new System.EventHandler(this.effectTypeSelected);
             // 
             // bonusTypeComboBox
             // 
             this.bonusTypeComboBox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.bonusTypeComboBox.FormattingEnabled = true;
-            this.bonusTypeComboBox.Location = new System.Drawing.Point(192, 48);
+            this.bonusTypeComboBox.Location = new System.Drawing.Point(255, 48);
             this.bonusTypeComboBox.Margin = new System.Windows.Forms.Padding(8, 8, 3, 8);
             this.bonusTypeComboBox.Name = "bonusTypeComboBox";
             this.bonusTypeComboBox.Size = new System.Drawing.Size(173, 24);
             this.bonusTypeComboBox.TabIndex = 3;
             this.bonusTypeComboBox.SelectedValueChanged += new System.EventHandler(this.bonusTypeSelected);
-            // 
-            // label3
+            this.bonusTypeComboBox.DrawTextItem += bonusTypeComboBoxOnDrawTextItem;
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
@@ -242,17 +242,16 @@ partial class ColonyStatForm
             // 
             this.targetTypeComboBox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.targetTypeComboBox.FormattingEnabled = true;
-            this.targetTypeComboBox.Location = new System.Drawing.Point(192, 8);
+            this.targetTypeComboBox.Location = new System.Drawing.Point(255, 8);
             this.targetTypeComboBox.Margin = new System.Windows.Forms.Padding(8, 8, 3, 8);
             this.targetTypeComboBox.Name = "targetTypeComboBox";
             this.targetTypeComboBox.Size = new System.Drawing.Size(173, 24);
             this.targetTypeComboBox.TabIndex = 2;
             this.targetTypeComboBox.SelectedValueChanged += new System.EventHandler(this.targetTypeSelected);
-            // 
-            // specialValueCheckBox
+            this.targetTypeComboBox.DrawTextItem += targetTypeComboBoxOnDrawTextItem;
             // 
             this.specialValueCheckBox.AutoSize = true;
-            this.specialValueCheckBox.Location = new System.Drawing.Point(192, 130);
+            this.specialValueCheckBox.Location = new System.Drawing.Point(255, 130);
             this.specialValueCheckBox.Margin = new System.Windows.Forms.Padding(8, 10, 3, 3);
             this.specialValueCheckBox.Name = "specialValueCheckBox";
             this.specialValueCheckBox.Size = new System.Drawing.Size(15, 14);
@@ -264,7 +263,7 @@ partial class ColonyStatForm
             this.valueTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(73)))), ((int)(((byte)(74)))));
             this.valueTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.valueTextBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.valueTextBox.Location = new System.Drawing.Point(192, 322);
+            this.valueTextBox.Location = new System.Drawing.Point(255, 322);
             this.valueTextBox.Margin = new System.Windows.Forms.Padding(8, 8, 3, 8);
             this.valueTextBox.Name = "valueTextBox";
             this.valueTextBox.Size = new System.Drawing.Size(173, 23);
@@ -276,7 +275,7 @@ partial class ColonyStatForm
             this.specialTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.specialTextBox.Enabled = false;
             this.specialTextBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.specialTextBox.Location = new System.Drawing.Point(192, 165);
+            this.specialTextBox.Location = new System.Drawing.Point(255, 165);
             this.specialTextBox.Margin = new System.Windows.Forms.Padding(8, 8, 3, 8);
             this.specialTextBox.Name = "specialTextBox";
             this.specialTextBox.Size = new System.Drawing.Size(173, 23);
@@ -300,7 +299,7 @@ partial class ColonyStatForm
             this.valueParamTextBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(73)))), ((int)(((byte)(74)))));
             this.valueParamTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.valueParamTextBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.valueParamTextBox1.Location = new System.Drawing.Point(192, 204);
+            this.valueParamTextBox1.Location = new System.Drawing.Point(255, 204);
             this.valueParamTextBox1.Margin = new System.Windows.Forms.Padding(8, 8, 3, 8);
             this.valueParamTextBox1.Name = "valueParamTextBox1";
             this.valueParamTextBox1.Size = new System.Drawing.Size(173, 23);
@@ -311,7 +310,7 @@ partial class ColonyStatForm
             // 
             this.stringParamComboBox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.stringParamComboBox.FormattingEnabled = true;
-            this.stringParamComboBox.Location = new System.Drawing.Point(192, 282);
+            this.stringParamComboBox.Location = new System.Drawing.Point(255, 282);
             this.stringParamComboBox.Margin = new System.Windows.Forms.Padding(8, 8, 3, 8);
             this.stringParamComboBox.Name = "stringParamComboBox";
             this.stringParamComboBox.Size = new System.Drawing.Size(173, 24);
@@ -324,7 +323,7 @@ partial class ColonyStatForm
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(495, 382);
+            this.ClientSize = new System.Drawing.Size(638, 384);
             this.Controls.Add(this.saveButton);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "ColonyStatForm";
@@ -341,12 +340,12 @@ partial class ColonyStatForm
     private TableLayoutPanel tableLayoutPanel1;
     private CrownLabel label6;
     private CrownLabel label5;
-    private CrownComboBox effectTypeComboBox;
-    private CrownComboBox bonusTypeComboBox;
+    private ModCrownComboBox effectTypeComboBox;
+    private ModCrownComboBox bonusTypeComboBox;
     private CrownLabel label3;
     private CrownLabel label2;
     private CrownLabel label1;
-    private CrownComboBox targetTypeComboBox;
+    private ModCrownComboBox targetTypeComboBox;
     private CrownTextBox valueTextBox;
     private CrownCheckBox specialValueCheckBox;
     private CrownLabel crownLabel1;

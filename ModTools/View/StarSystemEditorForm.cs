@@ -12,6 +12,7 @@ namespace ModTools.View
         public event EventHandler<DataArg<string>>? StarNameChanged;
         public event EventHandler<DataArg<string>>? StarSystemNameChanged;
         public event EventHandler<DataArg<string>>? StarSystemDescriptionChanged;
+        public event EventHandler<DataArg<string>>? CurrentStarSystemItemDoubleClicked;
         public event EventHandler<DataArg<int?>>? PositionTextChanged;
         public event EventHandler<DataArg<string>>? PlanetNameChanged;
         public event EventHandler<DataArg<int?>>? PlanetClassChanged;
@@ -47,7 +48,6 @@ namespace ModTools.View
         {
             InitializeComponent();
             Text = "Star System Editor";
-            modTypeComboBox.SelectedIndex = 1;
         }
 
         private void starSystemGroupTypeSelected(object sender, EventArgs e)
@@ -59,6 +59,11 @@ namespace ModTools.View
         public string? GetSelectedStar()
         {
             return starsComboBox.SelectedItem?.ToString();
+        }
+
+        public void SetModType(string modType)
+        {
+            modTypeComboBox.SelectedItem = modType;
         }
 
         public void AllowPlanetClassDistributionEdits(bool allow)
@@ -232,10 +237,9 @@ namespace ModTools.View
             bodyTypeLabel.Text = text;
         }
 
-        public void SetPosition(int? position)
+        public void SetPosition(string? position)
         {
-            var text = position != null ? position.Value.ToString() : "";
-            positionTextBox.Text = text;
+            positionTextBox.Text = position;
         }
 
         public void ShowDescription(bool show)
@@ -439,6 +443,11 @@ namespace ModTools.View
         private void systemToCopySelectedIndexChanged(object sender, EventArgs e)
         {
             SystemToCopyIndexSelected?.Invoke(sender, new DataArg<int?>(systemToCopyComboBox.SelectedIndex));
+        }
+
+        private void currentStarSystemItemDoubleClicked(object sender, EventArgs e)
+        {
+            CurrentStarSystemItemDoubleClicked?.Invoke(sender, new DataArg<string>(currentStarSystemsListView.SelectedItems[0].Text));
         }
     }
 }

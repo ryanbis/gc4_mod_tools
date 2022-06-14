@@ -45,6 +45,7 @@ namespace ModTools
                 .AddTransient<IOrbitLanePresenter, OrbitLanePresenter>()
                 .AddTransient<IOrbitBodyPresenter, OrbitBodyPresenter>()
                 .AddTransient<ISettingsPresenter, SettingsPresenter>()
+                .AddTransient<IEventEditorPresenter, EventEditorPresenter>()
 
                 // views
                 .AddScoped<IMainMenuView, MainMenuForm>()
@@ -60,6 +61,7 @@ namespace ModTools
                 .AddTransient<IOrbitBodyView, OrbitBodyForm>()
                 .AddTransient<ISettingsView, SettingsForm>()
                 .AddTransient<IGenericDialogView, GenericDialog>()
+                .AddTransient<IEventEditorView, EventEditorForm>()
                 
                 // other
                 .AddSingleton<ISettingsService, SettingsService>()

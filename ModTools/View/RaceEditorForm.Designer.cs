@@ -107,6 +107,8 @@ namespace ModTools.View
             this.colonyValueHeader = new System.Windows.Forms.ColumnHeader();
             this.colonyValueTypeHeader = new System.Windows.Forms.ColumnHeader();
             this.colonyStringParamHeader = new System.Windows.Forms.ColumnHeader();
+            this.valueParam1Header = new System.Windows.Forms.ColumnHeader();
+            this.valueParam2Header = new System.Windows.Forms.ColumnHeader();
             this.label17 = new ReaLTaiizor.Controls.CrownLabel();
             this.removeGlobalStatButton = new System.Windows.Forms.PictureBox();
             this.addGlobalStatButton = new System.Windows.Forms.PictureBox();
@@ -116,8 +118,6 @@ namespace ModTools.View
             this.label16 = new ReaLTaiizor.Controls.CrownLabel();
             this.citizenRaceBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.saveRaceButton = new ReaLTaiizor.Controls.CrownButton();
-            this.valueParam1Header = new System.Windows.Forms.ColumnHeader();
-            this.valueParam2Header = new System.Windows.Forms.ColumnHeader();
             ((System.ComponentModel.ISupportInitialize)(this.citizenRaceBindingSource)).BeginInit();
             this.tabPage1.SuspendLayout();
             this.generalInfoTabPage.SuspendLayout();
@@ -1022,6 +1022,18 @@ namespace ModTools.View
             this.colonyStringParamHeader.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.colonyStringParamHeader.Width = 100;
             // 
+            // valueParam1Header
+            // 
+            this.valueParam1Header.Text = "ValueParam1";
+            this.valueParam1Header.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.valueParam1Header.Width = 75;
+            // 
+            // valueParam2Header
+            // 
+            this.valueParam2Header.Text = "ValueParam2";
+            this.valueParam2Header.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.valueParam2Header.Width = 75;
+            // 
             // label17
             // 
             this.label17.AutoSize = true;
@@ -1112,18 +1124,6 @@ namespace ModTools.View
             this.saveRaceButton.TabIndex = 2;
             this.saveRaceButton.Text = "Save Race";
             this.saveRaceButton.Click += new System.EventHandler(this.saveRaceButton_Click);
-            // 
-            // valueParam1Header
-            // 
-            this.valueParam1Header.Text = "ValueParam1";
-            this.valueParam1Header.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.valueParam1Header.Width = 75;
-            // 
-            // valueParam2Header
-            // 
-            this.valueParam2Header.Text = "ValueParam2";
-            this.valueParam2Header.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.valueParam2Header.Width = 75;
             // 
             // RaceEditorForm
             // 

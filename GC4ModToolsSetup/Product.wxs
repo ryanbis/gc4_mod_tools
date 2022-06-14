@@ -2,9 +2,9 @@
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
 	
 	<?if $(var.Platform)=x64 ?>
-		<?define AppCode="{AA0F202A-C9E0-434A-AB1C-982C15682F65}"?>	
+		<?define AppCode="{B49357AD-0F10-4672-8431-0DB0091DAD5E}"?>	
 	<?else?>
-		<?define AppCode="{572CF17A-F282-4B7A-B2FF-E96B35C79576}"?>
+		<?define AppCode="{9B798DE4-7D65-49E4-A8CE-AD6D2C91D3B7}"?>
 	<?endif?>
 
 	<?define UpgradeCode="{E9710922-5282-4AE1-A31E-E52368DF1C07}"?>
@@ -24,7 +24,8 @@
 			Description="Mod Tools for Stardock's Galactic Civilizations IV"
 			InstallScope="perMachine" />
 
-		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed."
+		AllowSameVersionUpgrades="yes" Schedule="afterInstallInitialize" />
 		
 		<MediaTemplate
 			EmbedCab="yes"

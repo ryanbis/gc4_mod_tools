@@ -1,5 +1,6 @@
 ﻿namespace ModTools.Model.Other;
 
+[Serializable]
 public enum StrategicResourceType
 {
     Elerium,
@@ -8,5 +9,6 @@ public enum StrategicResourceType
     Promethion,
     Thulium,
     Relic,
-    Ascension
+    Ascension,
+    Mercenary
 }

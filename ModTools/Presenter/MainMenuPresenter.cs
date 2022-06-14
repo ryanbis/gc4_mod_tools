@@ -8,7 +8,6 @@ namespace ModTools.Presenter;
 public class MainMenuPresenter : IMainMenuPresenter
 {
     private readonly IMainMenuView _view;
-    private IRaceEditorPresenter _raceEditorPresenter;
     private readonly ISettingsService _settingsService;
     private readonly IServiceProvider _serviceProvider;
     private readonly IGenericDialogView _dialogView;
@@ -44,9 +43,18 @@ public class MainMenuPresenter : IMainMenuPresenter
         _view.RaceButtonClicked += OnRaceButtonClicked;
         _view.StarSystemButtonClicked += OnStarSystemButtonClicked;
         _view.SettingsButtonClicked += OnSettingsButtonClicked;
+        _view.EventButtonClicked += OnEventButtonClicked;
         _view.Activated += OnActivated;
         ShowDialogIfNeeded();
     }
+
+    private void SetEditorsEnabled(bool enabled)
+    {
+        _view.SetEventEditorEnabled(enabled);
+        _view.SetRaceEditorEnabled(enabled);
+        _view.SetStarSystemEditorEnabled(enabled);
+    }
+    
 
     private void ShowDialogIfNeeded()
     {
@@ -54,8 +62,7 @@ public class MainMenuPresenter : IMainMenuPresenter
         var needsModPath = string.IsNullOrWhiteSpace(_settingsService.GetModFolderPath());
         if (needsInstallPath || needsModPath)
         {
-            _view.SetRaceEditorEnabled(false);
-            _view.SetStarSystemEditorEnabled(false);
+            SetEditorsEnabled(false);
             var msg = "Before using any editor, please make sure to set your ";
             if (needsInstallPath)
             {
@@ -86,14 +93,25 @@ public class MainMenuPresenter : IMainMenuPresenter
         }
         else
         {
-            _view.SetRaceEditorEnabled(true);
-            _view.SetStarSystemEditorEnabled(true);
+            SetEditorsEnabled(true);
         }
     }
 
     private void OnActivated(object? sender, EventArgs e)
     {
         Refresh();
+    }
+    
+    private void OnEventButtonClicked(object? sender, EventArgs e)
+    {
+        // TODO - To be uncommented when event editor is ready
+        // var eventPresenter = _serviceProvider.GetRequiredService<IEventEditorPresenter>();
+        // eventPresenter.Init();
+        // eventPresenter.Show();
+        
+        // TODO - Remove this when event editor is ready (or for development)
+        _dialogView.Show_Ok("The event editor is not yet ready for public use. It's coming soon-ish.",
+            "Coming soon...ish");
     }
 
     private void OnSettingsButtonClicked(object? sender, EventArgs e)
@@ -105,13 +123,9 @@ public class MainMenuPresenter : IMainMenuPresenter
     
     private void OnRaceButtonClicked(object? sender, EventArgs e)
     {
-        if (_raceEditorPresenter == null || _raceEditorPresenter.IsDestroyed)
-        {
-            _raceEditorPresenter = _serviceProvider.GetRequiredService<IRaceEditorPresenter>();
-            _raceEditorPresenter.Init();
-        }
-
-        _raceEditorPresenter.Show();
+        var raceEditorPresenter = _serviceProvider.GetRequiredService<IRaceEditorPresenter>();
+        raceEditorPresenter.Init();
+        raceEditorPresenter.Show();
     }
 
     private void OnStarSystemButtonClicked(object? sender, EventArgs e)

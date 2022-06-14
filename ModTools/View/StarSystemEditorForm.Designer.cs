@@ -97,6 +97,7 @@
             this.orbitLaneListView = new System.Windows.Forms.ListView();
             this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
             this.currentStarSystemsListView = new System.Windows.Forms.ListView();
+            this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
             this.crownLabel8 = new ReaLTaiizor.Controls.CrownLabel();
             this.removeStarSystemButton = new System.Windows.Forms.PictureBox();
             this.addCurrentSystemButton = new ReaLTaiizor.Controls.CrownButton();
@@ -167,6 +168,7 @@
             this.tabPage1.TabColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(57)))), ((int)(((byte)(64)))));
             this.tabPage1.TabIndex = 1;
             this.tabPage1.SelectedIndexChanged += new System.EventHandler(this.tabSelectedIndexChanged);
+            this.tabPage1.DoubleClick += new System.EventHandler(this.currentStarSystemItemDoubleClicked);
             // 
             // generalInfoTabPage
             // 
@@ -860,7 +862,7 @@
             // laneBodyListView
             // 
             this.laneBodyListView.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(73)))), ((int)(((byte)(74)))));
-            this.laneBodyListView.Location = new System.Drawing.Point(3, 33);
+            this.laneBodyListView.Location = new System.Drawing.Point(3, 28);
             this.laneBodyListView.MultiSelect = false;
             this.laneBodyListView.Name = "laneBodyListView";
             this.laneBodyListView.Size = new System.Drawing.Size(141, 130);
@@ -957,12 +959,20 @@
             // currentStarSystemsListView
             // 
             this.currentStarSystemsListView.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(73)))), ((int)(((byte)(74)))));
+            this.currentStarSystemsListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader2});
+            this.currentStarSystemsListView.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.currentStarSystemsListView.Location = new System.Drawing.Point(723, 56);
             this.currentStarSystemsListView.Name = "currentStarSystemsListView";
             this.currentStarSystemsListView.Size = new System.Drawing.Size(183, 146);
             this.currentStarSystemsListView.TabIndex = 2;
             this.currentStarSystemsListView.UseCompatibleStateImageBehavior = false;
-            this.currentStarSystemsListView.View = System.Windows.Forms.View.List;
+            this.currentStarSystemsListView.View = System.Windows.Forms.View.Details;
+            this.currentStarSystemsListView.DoubleClick += new System.EventHandler(this.currentStarSystemItemDoubleClicked);
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Width = 160;
             // 
             // crownLabel8
             // 
@@ -1137,5 +1147,6 @@
         private ReaLTaiizor.Controls.CrownLabel crownLabel21;
         private ReaLTaiizor.Controls.CrownComboBox systemToCopyComboBox;
         private ColumnHeader columnHeader1;
+        private ColumnHeader columnHeader2;
     }
 }

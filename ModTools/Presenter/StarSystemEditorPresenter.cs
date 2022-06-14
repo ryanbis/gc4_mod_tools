@@ -28,6 +28,7 @@ public class StarSystemEditorPresenter : IStarSystemEditorPresenter
     private IList<StarSystem> _inGameStarSystems = new List<StarSystem>();
 
     private ISpaceService.StarsAndPlanets _starsAndPlanets;
+    private List<StarSystem> _allStarSystems;
     private ISpaceService.AnalyzeResult _analyzeResult;
 
     private readonly StarSystemList _currentStarSystemList = new() {StarSystemGroups = new List<StarSystemGroup>()};
@@ -101,12 +102,26 @@ public class StarSystemEditorPresenter : IStarSystemEditorPresenter
         _view.PlanetInfluenceChanged += OnPlanetInfluenceChanged;
         _view.ModTypeSelected += OnModTypeSelected;
         _view.SystemToCopyIndexSelected += OnSystemToCopyIndexSelected;
+        _view.CurrentStarSystemItemDoubleClicked += OnCurrentStarSystemItemDoubleClicked;
         UpdateInGameStarSystems();
         _inGameStars = _starsAndPlanets.StarList.Stars.Where(star => !string.IsNullOrWhiteSpace(star.DisplayName));
         _view.SetStarTypes(_inGameStars.Select(star => star.Name_Parsed).ToArray<string>());
         _view.SetStarSystemTypes(Constants.Space.STAR_SYSTEM_GROUP_TYPES.Keys.ToArray<object>(), 0);
         _view.SetPlanetTraits(_analyzeResult.PlanetTraits.ToArray());
         _view.SetPlanetTypes(_analyzeResult.PlanetTypes.ToArray());
+        _view.SetModType("Replace");
+    }
+
+    private void OnCurrentStarSystemItemDoubleClicked(object? sender, DataArg<string> e)
+    {
+        // TODO - Fill in current objects with the selected from the current list
+        _currentStarSystem = _allStarSystems.FirstOrDefault(ss => ss.InternalName.Equals(e.Value));
+        _currentOrbitLane = null;
+        _currentOrbitBody = null;
+        _currentPlanet = null;
+        _currentStar = null;
+        UpdateStarSystems();
+        UpdateUi();
     }
 
     private void UpdateInGameStarSystems()
@@ -137,11 +152,21 @@ public class StarSystemEditorPresenter : IStarSystemEditorPresenter
 
     private void OnModTypeSelected(object? sender, DataArg<int?> e)
     {
-        if (e.Value != null && e.Value.Value == 0)
+        if (e.Value is 0)
         {
             _dialogView.Show_Ok(
                 "The append MOD type doesn't seem to work with star systems. It is advised to always use the Replace method for star systems. ",
                 "Invalid Mod type");
+        } else if (e.Value is 1)
+        {
+            _currentStarSystemList.StarSystemGroups.Clear();
+            _currentStarSystemList.StarSystemGroups.AddRange(_starsAndPlanets.StarSystemList.StarSystemGroups);
+            _currentPlanet = null;
+            _currentStar = null;
+            _currentOrbitBody = null;
+            _currentOrbitLane = null;
+            UpdateStarSystems();
+            UpdateUi();
         }
     }
 
@@ -473,7 +498,10 @@ public class StarSystemEditorPresenter : IStarSystemEditorPresenter
                                bodyType == StarSystemBodyType.Asteroid.ToString();
             if (showPosition && !string.IsNullOrWhiteSpace(_currentOrbitBody.Position))
             {
-                _view.SetPosition(int.Parse(_currentOrbitBody.Position));
+                _view.SetPosition(_currentOrbitBody.Position);
+            } else
+            {
+                _view.SetPosition("");
             }
 
             _view.ShowPositionTable(showPosition);
@@ -662,6 +690,7 @@ public class StarSystemEditorPresenter : IStarSystemEditorPresenter
             GamePlayFolderPath + Constants.Space.STAR_SYSTEM_INSTALLED_FILENAME);
 
         _analyzeResult = _spaceService.AnalyzeStarSystemsAndPlanets(_starsAndPlanets);
+        _allStarSystems = _starsAndPlanets.StarSystemList.StarSystemGroups.SelectMany(ssg => ssg.StarSystems).ToList();
     }
 
     public void Show()

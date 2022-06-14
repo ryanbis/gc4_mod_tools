@@ -1,4 +1,5 @@
-﻿using ModTools.Model.Other;
+﻿using ModTools.Model.Events;
+using ModTools.Model.Other;
 using ModTools.Model.Race;
 using ModTools.View.Contracts;
 using ReaLTaiizor.Forms;
@@ -9,11 +10,11 @@ public partial class ColonyStatForm : CrownForm, IColonyStatView
 {
 
     private IOnSaveView<ColonyStats>.OnSave _saveDelegate;
-    private IEnumerable<string>? _targetTypes;
+    private IEnumerable<string>? _gameUsedTargetTypes;
     private string selectedTarget;
-    private IEnumerable<string>? _bonusTypes;
+    private IEnumerable<string>? _gameUsedBonusTypes;
     private string selectedBonus;
-    private IEnumerable<string>? _effectTypes;
+    private IEnumerable<string>? _gameUsedEffectTypes;
     private IList<string> _stringParamTypes;
     private string selectedEffect;
     private bool _hasSpecialValue;
@@ -26,23 +27,23 @@ public partial class ColonyStatForm : CrownForm, IColonyStatView
     }
 
     
-    public DialogResult ShowAddColonyStatDialog(IEnumerable<string>? targetTypes, IEnumerable<string>? bonusTypes, IEnumerable<string>? effectTypes,
+    public DialogResult ShowAddColonyStatDialog(IEnumerable<string>? gameUsedTargetTypes, IEnumerable<string>? gameUsedBonusTypes, IEnumerable<string>? gameUsedEffectTypes,
         IOnSaveView<ColonyStats>.OnSave saveDelegate)
     {
-        _targetTypes = targetTypes;
-        _bonusTypes = bonusTypes;
-        _effectTypes = effectTypes;
+        _gameUsedTargetTypes = gameUsedTargetTypes;
+        _gameUsedBonusTypes = gameUsedBonusTypes;
+        _gameUsedEffectTypes = gameUsedEffectTypes;
         _saveDelegate = saveDelegate;
         UpdateComboBoxes();
         return ShowDialog();
     }
     
-    public DialogResult ShowAddColonyStatDialog(IEnumerable<string>? targetTypes, IEnumerable<string>? bonusTypes, IEnumerable<string>? effectTypes,
+    public DialogResult ShowAddColonyStatDialog(IEnumerable<string>? gameUsedTargetTypes, IEnumerable<string>? gameUsedBonusTypes, IEnumerable<string>? gameUsedEffectTypes,
         ColonyStats currentStat, IOnSaveView<ColonyStats>.OnSave saveDelegate)
     {
-        _targetTypes = targetTypes;
-        _bonusTypes = bonusTypes;
-        _effectTypes = effectTypes;
+        _gameUsedTargetTypes = gameUsedTargetTypes;
+        _gameUsedBonusTypes = gameUsedBonusTypes;
+        _gameUsedEffectTypes = gameUsedEffectTypes;
         _saveDelegate = saveDelegate;
         UpdateComboBoxes();
         targetTypeComboBox.SelectedItem = currentStat.Target.TargetType;
@@ -54,7 +55,7 @@ public partial class ColonyStatForm : CrownForm, IColonyStatView
         if (hasSpecialValue)
         {
             _specialValue = currentStat.SpecialValue;
-            specialTextBox.Text = currentStat.SpecialValue?.Special;
+            specialTextBox.Text = currentStat.SpecialValue?.Special.ToString();
             valueParamTextBox1.Text = currentStat.SpecialValue.ValueParam[0];
             valueParamTextBox2.Text = currentStat.SpecialValue.ValueParam[1];
             stringParamComboBox.SelectedItem = currentStat.SpecialValue.StringParam;
@@ -69,22 +70,30 @@ public partial class ColonyStatForm : CrownForm, IColonyStatView
         {
             _stringParamTypes = Enum.GetNames(typeof(StrategicResourceType));
         }
+
+        var data = Utils.ProcessInGameList<TargetType>(_gameUsedTargetTypes, out _gameUsedTargetTypes);
+
         targetTypeComboBox.Items.Clear();
-        targetTypeComboBox.Items.AddRange(_targetTypes.ToArray());
+        targetTypeComboBox.Items.AddRange(data);
+
+        data = Utils.ProcessInGameList<ModifierBonusType>(_gameUsedBonusTypes, out _gameUsedBonusTypes);
         bonusTypeComboBox.Items.Clear();
-        bonusTypeComboBox.Items.AddRange(_bonusTypes.ToArray());
+        bonusTypeComboBox.Items.AddRange(data);
+        bonusTypeComboBox.SelectedIndex = 0;
+
+        data = Utils.ProcessInGameList<StatType>(_gameUsedEffectTypes, out _gameUsedEffectTypes);
         effectTypeComboBox.Items.Clear();
-        effectTypeComboBox.Items.AddRange(_effectTypes.ToArray());
+        effectTypeComboBox.Items.AddRange(data);
         stringParamComboBox.Items.Clear();
         stringParamComboBox.Items.AddRange(_stringParamTypes.ToArray());
     }
-
+    
     private void saveButton_Click(object sender, EventArgs e)
     {
         ColonyStats stat = new()
         {
             Target = new Target { TargetType = selectedTarget },
-            BonusType = selectedBonus,
+            BonusType = Enum.Parse<ModifierBonusType>(selectedBonus),
             EffectType = selectedEffect,
             Value = valueTextBox.Text
         };
@@ -148,7 +157,7 @@ public partial class ColonyStatForm : CrownForm, IColonyStatView
 
     private void specialValueCheckChanged(object sender, EventArgs e)
     {
-        if (_specialValue == null) _specialValue = new SpecialValue { Special = specialTextBox.Text };
+        if (_specialValue == null) _specialValue = new SpecialValue { Special = Enum.Parse<SpecialValueType>(specialTextBox.Text) };
         UpdateTableLayout();
     }
 
@@ -165,6 +174,7 @@ public partial class ColonyStatForm : CrownForm, IColonyStatView
         }
         else
         {
+            tableLayoutPanel1.RowStyles[8].SizeType = SizeType.AutoSize;
             tableLayoutPanel1.RowStyles[4].SizeType = SizeType.Absolute;
             tableLayoutPanel1.RowStyles[4].Height = 0;
             tableLayoutPanel1.RowStyles[5].SizeType = SizeType.Absolute;
@@ -173,7 +183,21 @@ public partial class ColonyStatForm : CrownForm, IColonyStatView
             tableLayoutPanel1.RowStyles[6].Height = 0;
             tableLayoutPanel1.RowStyles[7].SizeType = SizeType.Absolute;
             tableLayoutPanel1.RowStyles[7].Height = 0;
-            tableLayoutPanel1.RowStyles[8].SizeType = SizeType.AutoSize;
         }
+    }
+
+    private Color? effectTypeComboBoxOnDrawTextItem(object sender, DrawItemEventArgs e)
+    {
+        return Utils.getTextColorForModCrownComboBox(sender, e, _gameUsedEffectTypes);
+    }
+
+    private Color? bonusTypeComboBoxOnDrawTextItem(object sender, DrawItemEventArgs e)
+    {
+        return Utils.getTextColorForModCrownComboBox(sender, e, _gameUsedBonusTypes);
+    }
+
+    private Color? targetTypeComboBoxOnDrawTextItem(object sender, DrawItemEventArgs e)
+    {
+        return Utils.getTextColorForModCrownComboBox(sender, e, _gameUsedTargetTypes);
     }
 }

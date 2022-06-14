@@ -9,7 +9,7 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Version>0.0.1</Version>
     <Platforms>AnyCPU;x64;x86</Platforms>
-    <AssemblyVersion>0.3.2.0</AssemblyVersion>
+    <AssemblyVersion>0.4.1.0</AssemblyVersion>
     <PackageVersion>0.3.1</PackageVersion>
   </PropertyGroup>
 
@@ -61,6 +61,12 @@
     <EmbeddedResource Include="Images\Leaderstat_Resolve.png" />
     <None Remove="Images\LeaderStat_Social.png" />
     <EmbeddedResource Include="Images\LeaderStat_Social.png" />
+    <None Remove="Resources\scrollbar_arrow_hot.bmp" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Resources" />
+    <Folder Include="Resources\" />
   </ItemGroup>
 
 </Project>
