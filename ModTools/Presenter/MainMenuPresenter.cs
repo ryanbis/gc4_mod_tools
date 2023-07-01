@@ -1,4 +1,7 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using System;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using Microsoft.Extensions.DependencyInjection;
 using ModTools.Presenter.Contracts;
 using ModTools.Services.Contracts;
 using ModTools.View.Contracts;
@@ -105,13 +108,13 @@ public class MainMenuPresenter : IMainMenuPresenter
     private void OnEventButtonClicked(object? sender, EventArgs e)
     {
         // TODO - To be uncommented when event editor is ready
-        // var eventPresenter = _serviceProvider.GetRequiredService<IEventEditorPresenter>();
-        // eventPresenter.Init();
-        // eventPresenter.Show();
+        var eventPresenter = _serviceProvider.GetRequiredService<IEventEditorPresenter>();
+        eventPresenter.Init();
+        eventPresenter.Show();
         
         // TODO - Remove this when event editor is ready (or for development)
-        _dialogView.Show_Ok("The event editor is not yet ready for public use. It's coming soon-ish.",
-            "Coming soon...ish");
+        // _dialogView.Show_Ok("The event editor is not yet ready for public use. It's coming soon-ish.",
+        //     "Coming soon...ish");
     }
 
     private void OnSettingsButtonClicked(object? sender, EventArgs e)
