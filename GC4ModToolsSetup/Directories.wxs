@@ -11,17 +11,21 @@
 		<?if $(var.Platform)=x64 ?>
 										
 			<Directory Id="ProgramFiles64Folder">
-				<Directory Id="INSTALLFOLDER" Name="!(loc.ProductFolderName)" />
+				<Directory Id="INSTALLFOLDER" Name="!(loc.ProductFolderName)">
+				</Directory>
+
+
 			</Directory>
 			
 		<?else?>
 			
 			<Directory Id="ProgramFilesFolder">
-				<Directory Id="INSTALLFOLDER" Name="!(loc.ProductFolderName)" />
+				<Directory Id="INSTALLFOLDER" Name="!(loc.ProductFolderName)">
+				</Directory>
+				
 			</Directory>
 			
-		<?endif?>
-			
+		<?endif?>			
 			
 		</Directory>
 		

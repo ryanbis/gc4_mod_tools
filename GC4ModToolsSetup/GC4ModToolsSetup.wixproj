@@ -8,7 +8,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <OutputName>GC4ModToolsSetup-$(Configuration)-$(Platform)</OutputName>
     <OutputType>Package</OutputType>
-	<Cultures>;</Cultures>
+    <Cultures>;</Cultures>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <OutputPath>bin\$(Configuration)\</OutputPath>
@@ -23,6 +23,10 @@
     <DefineConstants>Debug</DefineConstants>
     <OutputPath>bin\$(Platform)\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Platform)\$(Configuration)\</IntermediateOutputPath>
+    <CompilerAdditionalOptions>
+    </CompilerAdditionalOptions>
+    <LinkerAdditionalOptions>
+    </LinkerAdditionalOptions>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
     <OutputPath>bin\$(Platform)\$(Configuration)\</OutputPath>
@@ -74,14 +78,10 @@
     <HeatDirectory OutputFile="ComponentsGenerated.wxs" DirectoryRefId="INSTALLFOLDER" ComponentGroupName="PublishedComponents" SuppressCom="true" Directory="..\ModTools\bin\$(Configuration)\net6.0-windows\win-$(Platform)" SuppressFragments="true" SuppressRegistry="true" SuppressRootDirectory="true" AutoGenerateGuids="false" GenerateGuidsNow="true" ToolPath="$(WixToolPath)" RunAsSeparateProcess="true" PreProcessorVariable="var.BasePath" />
   </Target>
   <Target Name="AfterBuild">
-
-	  <GetAssemblyIdentity AssemblyFiles="..\ModTools\bin\$(Configuration)\net6.0-windows\win-$(Platform)\ModTools.dll">
-		  <Output TaskParameter="Assemblies" ItemName="AssemblyVersion" />
-	  </GetAssemblyIdentity>
-
-	  <Exec Command="if not exist Setup mkdir Setup" />
-
-	  <Exec Command="move bin\$(Platform)\$(Configuration)\$(OutputName).msi Setup\GC4ModToolsSetup-%(AssemblyVersion.Version)-$(Configuration)-$(Platform).msi" />
-	  
+    <GetAssemblyIdentity AssemblyFiles="..\ModTools\bin\$(Configuration)\net6.0-windows\win-$(Platform)\ModTools.dll">
+      <Output TaskParameter="Assemblies" ItemName="AssemblyVersion" />
+    </GetAssemblyIdentity>
+    <Exec Command="if not exist Setup mkdir Setup" />
+    <Exec Command="move bin\$(Platform)\$(Configuration)\$(OutputName).msi Setup\GC4ModToolsSetup-%(AssemblyVersion.Version)-$(Configuration)-$(Platform).msi" />
   </Target>
 </Project>

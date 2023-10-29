@@ -42,9 +42,32 @@ public class SettingsPresenter : ISettingsPresenter
             return;
         }
 
-        ModFolderPath = selectFolderRequest.Path;
-        _view.SetModFolderPath(ModFolderPath);
-        _settingsService.SetModFolderPath(ModFolderPath);
+        var selectedPath = selectFolderRequest.Path;
+        if (verifyModPath(selectedPath))
+        {
+            ModFolderPath = selectFolderRequest.Path;
+            _view.SetModFolderPath(ModFolderPath);
+            _settingsService.SetModFolderPath(ModFolderPath);    
+        }
+        else
+        {
+            MessageBox.Show(
+                $"Please select a valid Mod folder path. The selected path should contain GalCiv4{Path.DirectorySeparatorChar}Mods in it.",
+                "Invalid mod path!", MessageBoxButtons.OK);
+        }
+    }
+
+    private bool verifyModPath(string path)
+    {
+        var modPath = $"GalCiv4{Path.DirectorySeparatorChar}Mods";
+        return path.Contains(modPath);
+    }
+
+    private bool verifyInstallPath(string path)
+    {
+        var gc4Path = path;
+        gc4Path = gc4Path + (gc4Path.EndsWith(Path.PathSeparator) ? "" : "/") + "GalCiv4.exe";
+        return File.Exists(gc4Path);
     }
 
     private void OnSetGameInstallPathClicked(object? sender, EventArgs e)
@@ -55,14 +78,27 @@ public class SettingsPresenter : ISettingsPresenter
         {
             return;
         }
-
-        GameInstallPath = selectFolderRequest.Path;
-        if (!GameInstallPath.EndsWith(Path.DirectorySeparatorChar))
+        
+        var selectedPath = selectFolderRequest.Path;
+        if (verifyInstallPath(selectedPath))
         {
-            GameInstallPath = $"{GameInstallPath}{Path.DirectorySeparatorChar}";
+            GameInstallPath = selectFolderRequest.Path;
+            _view.SetGameInstallPath(GameInstallPath);
+            _settingsService.SetGameInstallPath(GameInstallPath);
+            if (!GameInstallPath.EndsWith(Path.DirectorySeparatorChar))
+            {
+                GameInstallPath = $"{GameInstallPath}{Path.DirectorySeparatorChar}";
+            }
+            _view.SetGameInstallPath(GameInstallPath);
+            _settingsService.SetGameInstallPath(GameInstallPath);
         }
-        _view.SetGameInstallPath(GameInstallPath);
-        _settingsService.SetGameInstallPath(GameInstallPath);
+        else
+        {
+            MessageBox.Show(
+                "Please select the directory that Galactic Civilizations is installed in. The directory should contain GalCiv4.exe",
+                "GalCiv4.exe not found!", MessageBoxButtons.OK);
+            OnSetGameInstallPathClicked(sender, e);
+        }
     }
 
 

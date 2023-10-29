@@ -38,6 +38,9 @@ partial class MainMenuForm
             this.spaceButton3 = new ReaLTaiizor.Controls.SpaceButton();
             this.eventEditorButton = new ReaLTaiizor.Controls.SpaceButton();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.GC4Logo = new System.Windows.Forms.PictureBox();
+            this.FeedbackButton = new ReaLTaiizor.Controls.SpaceButton();
+            ((System.ComponentModel.ISupportInitialize)(this.GC4Logo)).BeginInit();
             this.SuspendLayout();
             // 
             // raceEditorButton
@@ -62,7 +65,7 @@ partial class MainMenuForm
             this.settingsButton.Customization = "Kioq/zIyMv8yMjL/Kioq/y8vL/8nJyf//v7+/yMjI/8qKir/";
             this.settingsButton.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.settingsButton.Image = null;
-            this.settingsButton.Location = new System.Drawing.Point(286, 12);
+            this.settingsButton.Location = new System.Drawing.Point(444, 12);
             this.settingsButton.Name = "settingsButton";
             this.settingsButton.NoRounding = false;
             this.settingsButton.Size = new System.Drawing.Size(195, 40);
@@ -78,7 +81,7 @@ partial class MainMenuForm
             this.starSystemEditorButton.Customization = "Kioq/zIyMv8yMjL/Kioq/y8vL/8nJyf//v7+/yMjI/8qKir/";
             this.starSystemEditorButton.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.starSystemEditorButton.Image = null;
-            this.starSystemEditorButton.Location = new System.Drawing.Point(12, 77);
+            this.starSystemEditorButton.Location = new System.Drawing.Point(12, 114);
             this.starSystemEditorButton.Name = "starSystemEditorButton";
             this.starSystemEditorButton.NoRounding = false;
             this.starSystemEditorButton.Size = new System.Drawing.Size(195, 40);
@@ -95,7 +98,7 @@ partial class MainMenuForm
             this.spaceButton3.Enabled = false;
             this.spaceButton3.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.spaceButton3.Image = null;
-            this.spaceButton3.Location = new System.Drawing.Point(12, 213);
+            this.spaceButton3.Location = new System.Drawing.Point(12, 319);
             this.spaceButton3.Name = "spaceButton3";
             this.spaceButton3.NoRounding = false;
             this.spaceButton3.Size = new System.Drawing.Size(195, 40);
@@ -108,9 +111,10 @@ partial class MainMenuForm
             // 
             this.eventEditorButton.BackColor = System.Drawing.SystemColors.Desktop;
             this.eventEditorButton.Customization = "Kioq/zIyMv8yMjL/Kioq/y8vL/8nJyf//v7+/yMjI/8qKir/";
+            this.eventEditorButton.Enabled = false;
             this.eventEditorButton.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.eventEditorButton.Image = null;
-            this.eventEditorButton.Location = new System.Drawing.Point(12, 144);
+            this.eventEditorButton.Location = new System.Drawing.Point(12, 213);
             this.eventEditorButton.Name = "eventEditorButton";
             this.eventEditorButton.NoRounding = false;
             this.eventEditorButton.Size = new System.Drawing.Size(195, 40);
@@ -119,7 +123,31 @@ partial class MainMenuForm
             this.eventEditorButton.TextAlignment = System.Windows.Forms.HorizontalAlignment.Center;
             this.eventEditorButton.Transparent = false;
             this.eventEditorButton.Click += new System.EventHandler(this.eventEditorButtonClicked);
-            this.eventEditorButton.Enabled = false;
+            // 
+            // GC4Logo
+            // 
+            this.GC4Logo.Location = new System.Drawing.Point(439, 243);
+            this.GC4Logo.Name = "GC4Logo";
+            this.GC4Logo.Size = new System.Drawing.Size(200, 116);
+            this.GC4Logo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.GC4Logo.TabIndex = 5;
+            this.GC4Logo.TabStop = false;
+            // 
+            // FeedbackButton
+            // 
+            this.FeedbackButton.BackColor = System.Drawing.SystemColors.Desktop;
+            this.FeedbackButton.Customization = "Kioq/zIyMv8yMjL/Kioq/y8vL/8nJyf//v7+/yMjI/8qKir/";
+            this.FeedbackButton.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.FeedbackButton.Image = null;
+            this.FeedbackButton.Location = new System.Drawing.Point(444, 114);
+            this.FeedbackButton.Name = "FeedbackButton";
+            this.FeedbackButton.NoRounding = false;
+            this.FeedbackButton.Size = new System.Drawing.Size(195, 40);
+            this.FeedbackButton.TabIndex = 6;
+            this.FeedbackButton.Text = "Contribute/Feedback";
+            this.FeedbackButton.TextAlignment = System.Windows.Forms.HorizontalAlignment.Center;
+            this.FeedbackButton.Transparent = false;
+            this.FeedbackButton.Click += new System.EventHandler(this.feedbackButton_Click);
             // 
             // MainMenuForm
             // 
@@ -128,7 +156,9 @@ partial class MainMenuForm
             this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.Desktop;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(493, 289);
+            this.ClientSize = new System.Drawing.Size(651, 371);
+            this.Controls.Add(this.FeedbackButton);
+            this.Controls.Add(this.GC4Logo);
             this.Controls.Add(this.eventEditorButton);
             this.Controls.Add(this.spaceButton3);
             this.Controls.Add(this.starSystemEditorButton);
@@ -136,6 +166,7 @@ partial class MainMenuForm
             this.Controls.Add(this.raceEditorButton);
             this.Name = "MainMenuForm";
             this.Text = "GC IV Mod Tools";
+            ((System.ComponentModel.ISupportInitialize)(this.GC4Logo)).EndInit();
             this.ResumeLayout(false);
 
     }
@@ -148,4 +179,6 @@ partial class MainMenuForm
     private ReaLTaiizor.Controls.SpaceButton spaceButton3;
     private ReaLTaiizor.Controls.SpaceButton eventEditorButton;
     private ToolTip toolTip;
+    private PictureBox GC4Logo;
+    private ReaLTaiizor.Controls.SpaceButton FeedbackButton;
 }

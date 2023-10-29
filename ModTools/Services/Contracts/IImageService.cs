@@ -3,7 +3,7 @@
 public interface IImageService
 {
 
-    LoadResult LoadCitizenImage(string basePath, string raceName, string imageFileName, string currentFullPath);
+    LoadResult LoadCitizenImage(string basePath, string raceName, string imageFileName, string currentFullPath, string raceInternalName);
     LoadResult LoadImage(string path);
     ImageStats GetImageStats(string imagePath);
     void ResizeImage(string loadPath, string? savePath, int width, int height);

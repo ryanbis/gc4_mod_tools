@@ -76,7 +76,7 @@ public class StarSystemEditorPresenter : IStarSystemEditorPresenter
 
         _currentStarSystemGroup.InternalName = Constants.Space.FACTION_START_STAR_SYSTEMS;
         _view.StarSystemTypeSelected += OnStarSystemTypeSelected;
-        _view.StarSelected += OnStarSelected;
+        // _view.StarSelected += OnStarSelected;
         _view.AddLaneBodyClicked += OnAddLaneBodyClicked;
         _view.AddOrbitLaneClicked += OnAddOrbitLaneClicked;
         _view.RemoveLaneBodyClicked += OnRemoveLaneBodyClicked;
@@ -283,57 +283,29 @@ public class StarSystemEditorPresenter : IStarSystemEditorPresenter
 
     private void OnAddCurrentSystemClicked(object? sender, EventArgs e)
     {
+        if (_currentStarSystem == null) return;
+
         if (string.IsNullOrWhiteSpace(_currentStarSystem.Name_Desired))
         {
             _dialogView.Show_Ok("Please enter a name for your new star system.", "Need a name!");
             return;
         }
 
-        if (string.IsNullOrWhiteSpace(_currentStar.Name_Desired))
-        {
-            _dialogView.Show_Ok("Please enter a name for your new star.", "Need a name!");
-            return;
-        }
+        // TODO - Verify stars and star names
+        //if (string.IsNullOrWhiteSpace(_currentStar.Name_Desired))
+        //{
+        //    _dialogView.Show_Ok("Please enter a name for your new star.", "Need a name!");
+        //    return;
+        //}
+        
+        //if (_view.GetSelectedStar() == null)
+        //{
+        //    _dialogView.Show_Ok("Please select an in game star to base your new star on.", "Select star");
+        //    return;
+        //}
 
-        if (_view.GetSelectedStar() == null)
-        {
-            _dialogView.Show_Ok("Please select an in game star to base your new star on.", "Select star");
-            return;
-        }
+        VerifyPlanets();
 
-        // TODO - All the checks below should check all planets in the system
-        if (string.IsNullOrWhiteSpace(_currentPlanet.PlanetClassDistribution.Minerals))
-        {
-            _dialogView.Show_Ok("Please enter a value for your planet's minerals.", "Need a value!");
-            return;
-        }
-        
-        if (string.IsNullOrWhiteSpace(_currentPlanet.PlanetClassDistribution.Technology))
-        {
-            _dialogView.Show_Ok("Please enter a value for your planet's technology.", "Need a value!");
-            return;
-        }
-        
-        if (string.IsNullOrWhiteSpace(_currentPlanet.PlanetClassDistribution.Wealth))
-        {
-            _dialogView.Show_Ok("Please enter a value for your planet's wealth.", "Need a value!");
-            return;
-        }
-        
-        if (string.IsNullOrWhiteSpace(_currentPlanet.PlanetClassDistribution.Fertility))
-        {
-            _dialogView.Show_Ok("Please enter a value for your planet's fertility.", "Need a value!");
-            return;
-        }
-        
-        if (string.IsNullOrWhiteSpace(_currentPlanet.PlanetClassDistribution.PlanetInfluence))
-        {
-            _dialogView.Show_Ok("Please enter a value for your planet's influence.", "Need a value!");
-            return;
-        }
-
-        if (_currentStarSystem == null) return;
-        
         var group = _currentStarSystemList.StarSystemGroups.FirstOrDefault(ssg =>
             ssg.InternalName.Equals(_currentStarSystemGroup.InternalName));
         if (group == null)
@@ -347,6 +319,43 @@ public class StarSystemEditorPresenter : IStarSystemEditorPresenter
             _currentStarSystemGroup.StarSystems.Add(_currentStarSystem);
             UpdateStarSystems();
             _currentStarSystem = _currentStarSystem.Clone();
+        }
+    }
+
+    private void VerifyPlanets()
+    {
+        var planets = _currentStarSystem.GetPlanets();
+        foreach (var planet in planets)
+        {
+            if (string.IsNullOrWhiteSpace(_currentPlanet.PlanetClassDistribution.Minerals))
+            {
+                _dialogView.Show_Ok("Please enter a value for your planet's minerals.", "Need a value!");
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(_currentPlanet.PlanetClassDistribution.Technology))
+            {
+                _dialogView.Show_Ok("Please enter a value for your planet's technology.", "Need a value!");
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(_currentPlanet.PlanetClassDistribution.Wealth))
+            {
+                _dialogView.Show_Ok("Please enter a value for your planet's wealth.", "Need a value!");
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(_currentPlanet.PlanetClassDistribution.Fertility))
+            {
+                _dialogView.Show_Ok("Please enter a value for your planet's fertility.", "Need a value!");
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(_currentPlanet.PlanetClassDistribution.PlanetInfluence))
+            {
+                _dialogView.Show_Ok("Please enter a value for your planet's influence.", "Need a value!");
+                return;
+            }
         }
     }
 
@@ -421,20 +430,20 @@ public class StarSystemEditorPresenter : IStarSystemEditorPresenter
         }
     }
 
-    private void OnStarSelected(object? sender, DataArg<string> e)
-    {
-        var star = _inGameStars.FirstOrDefault(star => star.Name_Parsed?.Equals(e.Value) ?? false);
-        if (star != null && _currentOrbitBody != null)
-        {
-            _currentOrbitBody.BodyDef = star.InternalName;
-            _currentStar.Type = star.Type;
-            _currentStar.ArtDefine = star.ArtDefine;
-            _currentStar.ObjectType = star.ObjectType;
-            _currentStar.TypeDisplayName = star.TypeDisplayName;
-            _currentStar.SFXDefine = star.SFXDefine;
-            _currentStar.AreaEffectDisplayName = star.AreaEffectDisplayName;
-        }
-    }
+    // private void OnStarSelected(object? sender, DataArg<string> e)
+    // {
+    //     var star = _inGameStars.FirstOrDefault(star => star.Name_Parsed?.Equals(e.Value) ?? false);
+    //     if (star != null && _currentOrbitBody != null)
+    //     {
+    //         _currentOrbitBody.BodyDef = star.InternalName;
+    //         _currentStar.Type = star.Type;
+    //         _currentStar.ArtDefine = star.ArtDefine;
+    //         _currentStar.ObjectType = star.ObjectType;
+    //         _currentStar.TypeDisplayName = star.TypeDisplayName;
+    //         _currentStar.SFXDefine = star.SFXDefine;
+    //         _currentStar.AreaEffectDisplayName = star.AreaEffectDisplayName;
+    //     }
+    // }
 
     private void OnLaneBodyIndexSelected(object? sender, DataArg<int?> e)
     {
@@ -460,13 +469,13 @@ public class StarSystemEditorPresenter : IStarSystemEditorPresenter
                 if (star == null)
                 {
                     star = _currentStarList.Stars.FirstOrDefault(st => st.InternalName.Equals(_currentOrbitBody.BodyDef));
-                    _view.SetStarName(star.Name_Desired);
                 }
                 else
                 {
-                    _view.SetSelectedStar(star.Name_Desired);
-                    _view.SetStarName(star.Name_Desired);
+                    _view.SetSelectedStar(star.Name_Desired);                    
                 }
+                _currentStar = star;
+                _view.SetStarName(star.Name_Desired);
             }
 
             var showPlanetTable = bodyType == StarSystemBodyType.Planet.ToString();
@@ -480,7 +489,8 @@ public class StarSystemEditorPresenter : IStarSystemEditorPresenter
                     {
                         planet = _starsAndPlanets.PlanetList.Planets.FirstOrDefault(p =>
                             p.InternalName.Equals(_currentOrbitBody.BodyDef));
-                    }
+                    } 
+                    _currentPlanet = planet;
                     _view.SetPlanetName(planet.Name_Desired);
                     _view.SetPlanetClass(int.Parse(planet.PlanetClass));
                     _view.SetPlanetTrait(planet.PlanetTrait);
@@ -489,7 +499,7 @@ public class StarSystemEditorPresenter : IStarSystemEditorPresenter
                     _view.SetPlanetTechnology(planet.PlanetClassDistribution.Technology);
                     _view.SetPlanetWealth(planet.PlanetClassDistribution.Wealth);
                     _view.SetPlanetFertility(planet.PlanetClassDistribution.Fertility);
-                    _view.SetPlanetInflunce(planet.PlanetClassDistribution.PlanetInfluence);
+                    _view.SetPlanetInflunce(planet.PlanetClassDistribution.PlanetInfluence);                    
                 }
             }
 
