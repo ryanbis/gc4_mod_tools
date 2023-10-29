@@ -1,4 +1,5 @@
-﻿using System.Xml;
+﻿using System.Text;
+using System.Xml;
 using System.Xml.Serialization;
 using ModTools.Model.Space;
 using ModTools.Model.String;
@@ -34,6 +35,17 @@ public class SpaceService : ISpaceService
             var starSystemStringList = _gameFileCacheService.GetGameFile<StringTableList>(starSystemList.BasePath +
                 Constants.RELATIVE_FROM_GAMEPLAY_TEXT_FOLDER +
                 Constants.Space.STAR_SYSTEM_TEXT_INSTALLED_FILENAME);
+
+            var ascTextList = _gameFileCacheService.GetGameFile<StringTableList>(starSystemList.BasePath +
+                Constants.RELATIVE_FROM_GAMEPLAY_TEXT_FOLDER +
+                Constants.Space.ALLIANCE_ASCENDANT_TEXT_FILENAME);
+
+            var oppTextList = _gameFileCacheService.GetGameFile<StringTableList>(starSystemList.BasePath +
+                Constants.RELATIVE_FROM_GAMEPLAY_TEXT_FOLDER +
+                Constants.Space.THE_OPPORTUNITY_TEXT_FILENAME);
+
+            starSystemStringList.StringTables.AddRange(ascTextList.StringTables);
+            starSystemStringList.StringTables.AddRange(oppTextList.StringTables);
 
             // Add the strings into the system objects for easier access
             foreach (var starSystemGroup in starSystemList.StarSystemGroups)
@@ -134,6 +146,8 @@ public class SpaceService : ISpaceService
                         }
                         else
                         {
+                            text = starSystemStringList.StringTables.FirstOrDefault(name =>
+                                name.Label.Equals(star.DisplayName));
                             star.Name_Desired = text.String;
                             star.Name_Parsed = star.Name_Desired.Replace(" ", "_");
                         }
@@ -243,13 +257,13 @@ public class SpaceService : ISpaceService
 
     public void SaveStarSystemList(ISpaceService.SaveObject saveObject)
     {
-        var modTextDir = $"{saveObject.modFolderPath}{Path.DirectorySeparatorChar}Text{Path.DirectorySeparatorChar}";
+        var modTextDir = Utils.GetModPath(saveObject.modFolderPath, "Text");
         if (!Directory.Exists(modTextDir))
         {
             Directory.CreateDirectory(modTextDir);
         }
 
-        var modGamePlayPath = $"{saveObject.modFolderPath}{Path.DirectorySeparatorChar}Gameplay{Path.DirectorySeparatorChar}";
+        var modGamePlayPath = Utils.GetModPath(saveObject.modFolderPath, "Gameplay");
         if (!Directory.Exists(modGamePlayPath))
         {
             Directory.CreateDirectory(modGamePlayPath);

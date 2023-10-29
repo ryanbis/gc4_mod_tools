@@ -79,7 +79,7 @@ public class RaceService : IRaceService
         saveRaceObject.race.DisplayName = displayName;
         var description = $"{internalName}{Constants.DESCRIPTION_SUFFIX}";
         saveRaceObject.race.Description = description;
-        var textDir = $"{saveRaceObject.modFolderPath}{Path.DirectorySeparatorChar}Text{Path.DirectorySeparatorChar}";
+        var textDir = Utils.GetModPath(saveRaceObject.modFolderPath, "Text");
         if (!Directory.Exists(textDir))
         {
             Directory.CreateDirectory(textDir);
@@ -110,8 +110,8 @@ public class RaceService : IRaceService
         var modFilePath = $"{textDir}UnitPortraits_{saveRaceObject.race.Name_Parsed}.xml";
         citizenPortraitsFlavorTextDefsXml.SerializeToXml(modFilePath);
 
-        // Now save the race def
-        var gamePlayPath = $"{saveRaceObject.modFolderPath}{Path.DirectorySeparatorChar}Gameplay{Path.DirectorySeparatorChar}";
+        // Now save the race def        
+        var gamePlayPath = Utils.GetModPath(saveRaceObject.modFolderPath, "Gameplay");
         if (!Directory.Exists(gamePlayPath))
         {
             Directory.CreateDirectory(gamePlayPath);
@@ -254,8 +254,7 @@ public class RaceService : IRaceService
     
     private static string GetCitizenDir(string? modFolderPath)
     {
-        var dir = $"{modFolderPath}" + Path.DirectorySeparatorChar + "Gfx" + Path.DirectorySeparatorChar + "Citizens" +
-                  Path.DirectorySeparatorChar;
+        var dir = Utils.GetModPath(modFolderPath, "Gfx", "Citizens");
         if (!Directory.Exists(dir))
         {
             Directory.CreateDirectory(dir);

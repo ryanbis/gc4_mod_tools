@@ -9,7 +9,7 @@ public class RequestImageFileView : IRequestImageFileView
         var result = new IRequestImageFileView.RequestFileResult();
         var dialog = new OpenFileDialog();
         dialog.Filter = "jpg files (*.jpg)|*.jpg|png files (*.png)|*.png|dds files (*.dds)|*.dds";
-        dialog.FilterIndex = 1;
+        dialog.FilterIndex = 2;
         dialog.Multiselect = multiSelect;
         if (dialog.ShowDialog() != DialogResult.OK || (string.IsNullOrWhiteSpace(dialog.FileName) && dialog.FileNames.Length == 0))
         {

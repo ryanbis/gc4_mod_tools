@@ -1,9 +1,37 @@
 ﻿using ModTools.View;
+using System.Text;
 
 namespace ModTools;
 
 public static class Utils
 {
+
+    public static string GetModPath(params string[] pathSegments)
+    {
+        if (pathSegments.Length == 0)
+        {
+            return "";
+        }
+        var b = new StringBuilder();
+        foreach (var path in pathSegments)
+        {
+            if (b.Length == 0)
+            {
+                b.Append(path).Append(Path.DirectorySeparatorChar).Append("Data");
+            }
+            else
+            {
+                b.Append(Path.DirectorySeparatorChar);
+                b.Append(path);
+            }
+        }
+        if (!b.ToString().EndsWith(Path.DirectorySeparatorChar))
+        {
+            b.Append(Path.DirectorySeparatorChar);
+        }
+        return b.ToString();
+    }
+
     public static Color? getTextColorForModCrownComboBox(object sender, DrawItemEventArgs e, IEnumerable<string> list)
     {
         try
@@ -34,5 +62,15 @@ public static class Utils
         }
         list.Sort();
         return sortedGameList.Concat(list).ToArray();
+    }
+
+    public static string GetToolsAppDataFolder()
+    {
+        var path = $"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}{Path.DirectorySeparatorChar}GC4ModTools{Path.DirectorySeparatorChar}";
+        if (!Directory.Exists(path))
+        {
+            Directory.CreateDirectory(path);
+        }
+        return path;
     }
 }

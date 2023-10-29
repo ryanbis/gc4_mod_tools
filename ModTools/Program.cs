@@ -69,7 +69,14 @@ namespace ModTools
                 .AddScoped<IImageService, ImageSharpImageService>()
                 .AddScoped<IRaceService, RaceService>()
                 .AddScoped<ISpaceService, SpaceService>()
-                .AddScoped<LocalStorage>();
+                .AddScoped(sp => 
+                {
+                    var storage = new LocalStorage(new LocalStorageConfiguration
+                    {
+                        Filename = $"{Utils.GetToolsAppDataFolder()}.localstorage"
+                    });
+                    return storage;
+                });
         }
     }
 }

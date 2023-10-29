@@ -8,9 +8,9 @@
 		</ComponentGroup>
 
 		<DirectoryRef Id="INSTALLFOLDER" FileSource="..\ModTools\bin\Debug\net6.0-windows\win-$(var.Platform)\">
-			<Component Id="AppShortcut" Guid="{AFAF6CC2-6CAF-4C8B-818F-508ACF0DA828}">
+			<Component Id="AppShortcut" Guid="*">
 				<Shortcut Id="AppShortcut"
-						  Name="GC IV Mod Tools"
+						  Name="GC IV Supernova Mod Tools"
 						  Target="[INSTALLFOLDER]ModTools.exe"
 						  Directory="ProgramMenuFolder"
 						  WorkingDirectory="INSTALLFOLDER"

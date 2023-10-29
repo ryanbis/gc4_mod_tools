@@ -2,9 +2,9 @@
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
 	
 	<?if $(var.Platform)=x64 ?>
-		<?define AppCode="{B49357AD-0F10-4672-8431-0DB0091DAD5E}"?>	
+		<?define AppCode="{2457DDBF-D94A-416B-BF20-C5772AA853E7}"?>	
 	<?else?>
-		<?define AppCode="{9B798DE4-7D65-49E4-A8CE-AD6D2C91D3B7}"?>
+		<?define AppCode="{AF1B01CD-5DDC-460B-B2A7-B7B2CF09AE09}"?>
 	<?endif?>
 
 	<?define UpgradeCode="{E9710922-5282-4AE1-A31E-E52368DF1C07}"?>

@@ -11,12 +11,24 @@ public partial class MainMenuForm : CrownForm, IMainMenuView
     public event EventHandler? StarSystemButtonClicked;
     public event EventHandler? SettingsButtonClicked;
     public event EventHandler? EventButtonClicked;
+    public event EventHandler? FeedbackButtonClicked;
 
 
     public MainMenuForm()
     {
         InitializeComponent();
-        Text = $"GC IV Mod Tools v{Assembly.GetEntryAssembly().GetName().Version}";
+        Text = $"GC IV: Supernova Mod Tools v{Assembly.GetEntryAssembly().GetName().Version}";
+    }
+
+
+    public void SetGC4LogoImage(Image image)
+    {
+        GC4Logo.Image = image;
+    }
+
+    public void SetBackgroundImage(Image image)
+    {
+        BackgroundImage = image;
     }
 
     public void SetRaceEditorEnabled(bool enabled)
@@ -39,6 +51,11 @@ public partial class MainMenuForm : CrownForm, IMainMenuView
         return this;
     }
 
+    private void feedbackButton_Click(object sender, EventArgs e)
+    {
+        FeedbackButtonClicked?.Invoke(this, EventArgs.Empty);
+    }
+
     private void raceEditorButton_Click(object sender, EventArgs e)
     {
         RaceButtonClicked?.Invoke(this, EventArgs.Empty);
@@ -58,4 +75,5 @@ public partial class MainMenuForm : CrownForm, IMainMenuView
     {
         EventButtonClicked?.Invoke(this, EventArgs.Empty);
     }
+
 }

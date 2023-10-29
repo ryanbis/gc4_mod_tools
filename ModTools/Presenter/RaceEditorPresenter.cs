@@ -107,18 +107,43 @@ public class RaceEditorPresenter : IRaceEditorPresenter
     private void OnManagePortraitsButtonClicked(object? sender, EventArgs e)
     {
         if (CitizenPortraitList.Count == 0)
-        {
-            if (!string.IsNullOrWhiteSpace(CurrentRace.GenericImageFullPath)) CitizenPortraitList.Add(CurrentRace.GenericImageFullPath);
-            if (!string.IsNullOrWhiteSpace(CurrentRace.MilitaryAdvisorPortraitFullPath)) CitizenPortraitList.Add(CurrentRace.MilitaryAdvisorPortraitFullPath);
-            if (!string.IsNullOrWhiteSpace(CurrentRace.ColonizationAdvisorPortraitFullPath)) CitizenPortraitList.Add(CurrentRace.ColonizationAdvisorPortraitFullPath);
-            if (!string.IsNullOrWhiteSpace(CurrentRace.ScienceAdvisorPortraitFullPath)) CitizenPortraitList.Add(CurrentRace.ScienceAdvisorPortraitFullPath);
-            if (!string.IsNullOrWhiteSpace(CurrentRace.PoliticalAdvisorPortraitFullPath)) CitizenPortraitList.Add(CurrentRace.PoliticalAdvisorPortraitFullPath);    
+        {            
+            PopulateCitizenPortraitPaths();
         }
         var manageForm = _serviceProvider.GetRequiredService<IManageCitizenPortraitsPresenter>();
         manageForm.Init();
         manageForm.RefreshPaths(new HashSet<string>(CitizenPortraitList));
         manageForm.OnSaveCitizenImages += OnSaveCitizenImages;
         manageForm.Show();
+    }
+
+    private void PopulateCitizenPortraitPaths()
+    {
+        if (!string.IsNullOrWhiteSpace(CurrentRace.GenericImageFullPath)) CitizenPortraitList.Add(CurrentRace.GenericImageFullPath);
+        if (!string.IsNullOrWhiteSpace(CurrentRace.MilitaryAdvisorPortraitFullPath)) CitizenPortraitList.Add(CurrentRace.MilitaryAdvisorPortraitFullPath);
+        if (!string.IsNullOrWhiteSpace(CurrentRace.ColonizationAdvisorPortraitFullPath)) CitizenPortraitList.Add(CurrentRace.ColonizationAdvisorPortraitFullPath);
+        if (!string.IsNullOrWhiteSpace(CurrentRace.ScienceAdvisorPortraitFullPath)) CitizenPortraitList.Add(CurrentRace.ScienceAdvisorPortraitFullPath);
+        if (!string.IsNullOrWhiteSpace(CurrentRace.PoliticalAdvisorPortraitFullPath)) CitizenPortraitList.Add(CurrentRace.PoliticalAdvisorPortraitFullPath);
+
+        var shortname = CurrentRace.InternalName.Replace("Race_", "");
+        if (!shortname.Contains("_"))
+        {
+            var citizenDir = $"{_settingsService.GetGameInstallPath()}Gfx{Path.DirectorySeparatorChar}Citizens{Path.DirectorySeparatorChar}{shortname}";
+            if (Directory.Exists(citizenDir))
+            {
+                foreach (string file in Directory.EnumerateFiles(citizenDir)) {
+                    var extension = Path.GetExtension(file);
+                    if (!CitizenPortraitList.Contains(file) &&
+                        extension.Equals(".png", StringComparison.OrdinalIgnoreCase) ||
+                        extension.Equals(".jpg", StringComparison.OrdinalIgnoreCase) ||
+                        extension.Equals(".dds", StringComparison.OrdinalIgnoreCase)                        
+                        )
+                    {
+                        CitizenPortraitList.Add(_imageService.LoadImage(file).Path);
+                    }
+                }
+            }
+        }
     }
 
     private void OnSaveCitizenImages(object? o, DataArg<IEnumerable<string>> arg)
@@ -369,6 +394,12 @@ public class RaceEditorPresenter : IRaceEditorPresenter
 
         CurrentRace.PoliticalAdvisorPortraitFullPath = politicalAdvisorPortraitFileRequest.Path;
         CurrentRace.PoliticalAdvisorPortrait = Path.GetFileName(CurrentRace.PoliticalAdvisorPortraitFullPath);
+        var moddedPath = CheckImageSize(CurrentRace.PoliticalAdvisorPortraitFullPath);
+        if (moddedPath != null)
+        {
+            CurrentRace.PoliticalAdvisorPortraitFullPath= moddedPath;
+            CurrentRace.PoliticalAdvisorPortrait = Path.GetFileName(moddedPath);
+        }
         UpdateUi();
     }
 
@@ -383,6 +414,12 @@ public class RaceEditorPresenter : IRaceEditorPresenter
 
         CurrentRace.ColonizationAdvisorPortraitFullPath = colonizationAdvisorPortraitFileRequest.Path;
         CurrentRace.ColonizationAdvisorPortrait = Path.GetFileName(CurrentRace.ColonizationAdvisorPortraitFullPath);
+        var moddedPath = CheckImageSize(CurrentRace.ColonizationAdvisorPortraitFullPath);
+        if (moddedPath != null)
+        {
+            CurrentRace.ColonizationAdvisorPortraitFullPath = moddedPath;
+            CurrentRace.ColonizationAdvisorPortrait = Path.GetFileName(moddedPath);
+        }
         UpdateUi();
     }
 
@@ -397,6 +434,12 @@ public class RaceEditorPresenter : IRaceEditorPresenter
 
         CurrentRace.ScienceAdvisorPortraitFullPath = scienceAdvisorPortraitFileRequest.Path;
         CurrentRace.ScienceAdvisorPortrait = Path.GetFileName(CurrentRace.ScienceAdvisorPortraitFullPath);
+        var moddedPath = CheckImageSize(CurrentRace.ScienceAdvisorPortraitFullPath);
+        if (moddedPath != null)
+        {
+            CurrentRace.ScienceAdvisorPortraitFullPath = moddedPath;
+            CurrentRace.ScienceAdvisorPortrait = Path.GetFileName(moddedPath);
+        }
         UpdateUi();
     }
 
@@ -411,6 +454,12 @@ public class RaceEditorPresenter : IRaceEditorPresenter
 
         CurrentRace.MilitaryAdvisorPortraitFullPath = militaryAdvisorPortraitFileRequest.Path;
         CurrentRace.MilitaryAdvisorPortrait = Path.GetFileName(CurrentRace.MilitaryAdvisorPortraitFullPath);
+        var moddedPath = CheckImageSize(CurrentRace.MilitaryAdvisorPortraitFullPath);
+        if (moddedPath != null)
+        {
+            CurrentRace.MilitaryAdvisorPortraitFullPath = moddedPath;
+            CurrentRace.MilitaryAdvisorPortrait = Path.GetFileName(moddedPath);
+        }
         UpdateUi();
     }
 
@@ -426,26 +475,32 @@ public class RaceEditorPresenter : IRaceEditorPresenter
         CurrentRace.GenericImageFullPath = genericImageFileRequest.Path;
         CurrentRace.GenericImage = Path.GetFileName(CurrentRace.GenericImageFullPath);
 
-        // Check image size
-        var imageStats = _imageService.GetImageStats(CurrentRace.GenericImageFullPath);
-        if (imageStats.Height != 128 || imageStats.Width != 128)
+        var moddedPath = CheckImageSize(CurrentRace.GenericImageFullPath);
+        if (moddedPath != null)
+        {
+            CurrentRace.GenericImageFullPath = moddedPath;
+            CurrentRace.GenericImage = Path.GetFileName(moddedPath);
+        }
+        UpdateUi();       
+    }
+
+    private string? CheckImageSize(string imgPath)
+    {
+        var imageStats = _imageService.GetImageStats(imgPath);
+        if (imageStats.Height != 128 && imageStats.Height != 256 ||
+            imageStats.Width != 128 && imageStats.Width != 256)
         {
             var dialogResult = _dialogView.Show_YesNo(
-                "Looks like the selected image isn't 128x128. Do you want to automatically resize the image?",
+                "Looks like the selected image isn't 128x128, or 256x256. Do you want to automatically resize the image?",
                 "Image size mis-match");
             if (dialogResult == DialogResult.Yes)
             {
                 var path = Path.GetTempPath() + CurrentRace.GenericImage;
-                _imageService.ResizeImage(CurrentRace.GenericImageFullPath, path, 128, 128);
-                CurrentRace.GenericImageFullPath = path;
-                CurrentRace.GenericImage = Path.GetFileName(path);
-                UpdateUi();
+                _imageService.ResizeImage(imgPath, path, 256, 256);
+                return path;
             }
         }
-        else
-        {
-            UpdateUi();
-        }
+        return null;
     }
 
     private void UpdateUi()
@@ -460,6 +515,8 @@ public class RaceEditorPresenter : IRaceEditorPresenter
             return;
 
         CurrentRace = selectedRace.DeepCopy();
+        CitizenPortraitList.Clear();
+        PopulateCitizenPortraitPaths();
         UpdateUi();
     }
 

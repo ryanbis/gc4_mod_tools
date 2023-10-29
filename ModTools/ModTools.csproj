@@ -9,7 +9,7 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Version>0.0.1</Version>
     <Platforms>AnyCPU;x64;x86</Platforms>
-    <AssemblyVersion>0.4.1.0</AssemblyVersion>
+    <AssemblyVersion>0.5.0.1</AssemblyVersion>
     <PackageVersion>0.3.1</PackageVersion>
   </PropertyGroup>
 
@@ -38,6 +38,11 @@
     <Compile Update="Form\ApprovalModifierForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -65,8 +70,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Resources" />
     <Folder Include="Resources\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
 
 </Project>

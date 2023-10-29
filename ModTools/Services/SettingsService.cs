@@ -14,7 +14,7 @@ public class SettingsService : ISettingsService
 
     public SettingsService(LocalStorage localStorage)
     {
-        _localStorage = localStorage;
+        _localStorage = localStorage;        
     }
     
     public string? GetGameInstallPath()

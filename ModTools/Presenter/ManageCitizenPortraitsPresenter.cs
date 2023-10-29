@@ -61,7 +61,7 @@ public class ManageCitizenPortraitsPresenter : IManageCitizenPortraitsPresenter
 
         foreach (var path in result.Paths)
         {
-            portraitMap.Add(Path.GetFileName(path), path);
+            portraitMap.TryAdd(Path.GetFileName(path), path);
         }
         _view.RefreshPaths(portraitMap.Values);
     }

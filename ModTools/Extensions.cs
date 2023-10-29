@@ -5,6 +5,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Xml;
 using System.Xml.Serialization;
 using ModTools.Model.EffectType;
+using ModTools.Model.Space;
 
 namespace ModTools;
 
@@ -60,5 +61,15 @@ public static class Extensions
 
         textBox.Text = number?.ToString() ?? "";
         return number;
+    }
+
+    public static List<OrbitBody> GetPlanets(this StarSystem starSystem)
+    {
+        return starSystem.OrbitLanes.Where(l => l.LaneType != Constants.Space.STAR_SUFFIX).SelectMany(l => l.Bodies.Where(b => b.BodyDef == Constants.Space.PLANET_PREFIX)).ToList();
+    }
+
+    public static OrbitBody GetStar(this StarSystem starSystem)
+    {
+        return starSystem.OrbitLanes.Where(l => l.LaneType == Constants.Space.STAR_SUFFIX).First().Bodies[0];
     }
 }

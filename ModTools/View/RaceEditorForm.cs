@@ -116,27 +116,27 @@ namespace ModTools.View
             descriptionTextBox.Text = race.Description_Desired;
             IsMinorRaceCheckBox.Checked = race.IsMinorRace;
             hasGenderCheckBox.Checked = race.HasGender;
-            var image = _imageService.LoadCitizenImage(basePath, race.Name_Parsed, race.GenericImage, race.GenericImageFullPath);
+            var image = _imageService.LoadCitizenImage(basePath, race.Name_Parsed, race.GenericImage, race.GenericImageFullPath, race.InternalName);
             genericImagePictureBox.Image = image.Image;
             race.GenericImageFullPath = image.Path;
             race.GenericImage = Path.GetFileName(image.Path);
             
-            image = _imageService.LoadCitizenImage(basePath, race.Name_Parsed, race.MilitaryAdvisorPortrait, race.MilitaryAdvisorPortraitFullPath);
+            image = _imageService.LoadCitizenImage(basePath, race.Name_Parsed, race.MilitaryAdvisorPortrait, race.MilitaryAdvisorPortraitFullPath, race.InternalName);
             militaryAdvisorPortraitPictureBox.Image = image.Image;
             race.MilitaryAdvisorPortraitFullPath = image.Path;
             race.MilitaryAdvisorPortrait = Path.GetFileName(image.Path);
 
-            image = _imageService.LoadCitizenImage(basePath, race.Name_Parsed, race.ScienceAdvisorPortrait, race.ScienceAdvisorPortraitFullPath);
+            image = _imageService.LoadCitizenImage(basePath, race.Name_Parsed, race.ScienceAdvisorPortrait, race.ScienceAdvisorPortraitFullPath, race.InternalName);
             scienceAdvisorPortraitPictureBox.Image = image.Image;
             race.ScienceAdvisorPortraitFullPath = image.Path;
             race.ScienceAdvisorPortrait = Path.GetFileName(image.Path);
 
-            image = _imageService.LoadCitizenImage(basePath, race.Name_Parsed, race.ColonizationAdvisorPortrait, race.ColonizationAdvisorPortraitFullPath);
+            image = _imageService.LoadCitizenImage(basePath, race.Name_Parsed, race.ColonizationAdvisorPortrait, race.ColonizationAdvisorPortraitFullPath, race.InternalName);
             colonizationAdvisorPortraitPictureBox.Image = image.Image;
             race.ColonizationAdvisorPortraitFullPath = image.Path;
             race.ColonizationAdvisorPortrait = Path.GetFileName(image.Path);
 
-            image = _imageService.LoadCitizenImage(basePath, race.Name_Parsed, race.PoliticalAdvisorPortrait, race.PoliticalAdvisorPortraitFullPath);
+            image = _imageService.LoadCitizenImage(basePath, race.Name_Parsed, race.PoliticalAdvisorPortrait, race.PoliticalAdvisorPortraitFullPath, race.InternalName);
             politicalAdvisorPortraitPictureBox.Image = image.Image;
             race.PoliticalAdvisorPortraitFullPath = image.Path;
             race.PoliticalAdvisorPortrait = Path.GetFileName(image.Path);

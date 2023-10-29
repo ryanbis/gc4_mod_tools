@@ -19,7 +19,7 @@ public class ImageSharpImageService : IImageService
         return stats;
     }
 
-    public IImageService.LoadResult LoadCitizenImage(string basePath, string raceName, string imageFileName, string currentFullPath)
+    public IImageService.LoadResult LoadCitizenImage(string basePath, string raceName, string imageFileName, string currentFullPath, string raceInternalName)
     {
         var result = new IImageService.LoadResult();
         var filePath = string.IsNullOrWhiteSpace(currentFullPath) ? 
@@ -42,6 +42,26 @@ public class ImageSharpImageService : IImageService
                 {
                     // Must be one of the minor races, which all fall under the other folder
                     filePath = basePath + string.Format(Constants.Race.RACE_CITIZEN_IMAGE_FOLDER, "Other") + imageFileName;
+                    if (!File.Exists(filePath))
+                    {
+                        // Last ditch effort, get the race from the internal name
+                        var lastDitchRace = raceInternalName.Replace("Race_", "");
+                        filePath = basePath + string.Format(Constants.Race.RACE_CITIZEN_IMAGE_FOLDER, lastDitchRace) +
+                                   imageFileName;
+                        if (!File.Exists(filePath))
+                        {
+                            // Ok, real last ditch effort due to irradiated having multiple races
+                            var digits = new[] { '1', '2', '3', '4', '5', '6', '7', '8', '9', '0'};
+                            lastDitchRace = lastDitchRace.TrimEnd(digits);
+                            filePath = basePath + string.Format(Constants.Race.RACE_CITIZEN_IMAGE_FOLDER, lastDitchRace) +
+                                       imageFileName;
+                            if (!File.Exists(filePath))
+                            {
+                                // Default to "custom" image
+                                filePath = basePath + Constants.Race.CUSTOM_CITIZEN_DEFAULT_PATH;
+                            }
+                        }
+                    }
                 }
             }
         }

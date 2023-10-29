@@ -5,7 +5,7 @@ namespace ModTools.View.Contracts;
 public interface IStarSystemEditorView : IView
 {
     event EventHandler<DataArg<string>> StarSystemTypeSelected;
-    event EventHandler<DataArg<string>> StarSelected;
+    //event EventHandler<DataArg<string>> StarSelected;
     event EventHandler<DataArg<string>> StarNameChanged;
     event EventHandler<DataArg<string>> StarSystemNameChanged;
     event EventHandler<DataArg<string>> StarSystemDescriptionChanged;
